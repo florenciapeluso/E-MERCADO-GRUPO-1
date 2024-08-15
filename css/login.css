@@ -1,0 +1,106 @@
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.box-container {
+    width: 100%;
+}
+
+.box-icon {
+    width: 0px;
+    float: left;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.logo-ecommerce {
+    width: 40%;
+}
+
+.box-login {
+    width: 550px;
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (min-width: 900px) {
+    .box-icon {
+        width: 60%;
+    }
+
+    .box-login {
+        float: right;
+    }
+}
+
+.form {
+    border: 0px solid white;
+    border-radius: 45px;
+    padding: 1em 2.5em;
+    margin: 4em 6em 3em 6em;
+    box-shadow: 3px 3px 10px;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.profile-icon {
+    width: 20%;
+    border: 2px solid white;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-label {
+    font-weight: bold;
+}
+
+.login-input {
+    border-radius: 25px;
+    border-width: 1px;
+    padding: 0.8em;
+    width: 90%;
+    margin-top: 0.5em;
+}
+
+.btn-submit {
+    border-radius: 25px;
+    border-width: 1px;
+    font-size: 1rem;
+    padding: 0.6em;
+    width: 50%;
+    font-weight: bold;
+    background-color: white;
+    border-color: white;
+    display: block;
+    margin: 2em auto 0 auto;
+}
+
+.btn-submit:hover {
+    background-color: #ffffffe1;
+    box-shadow: 0 2px 3px white;
+}
+
+.link-pass {
+    margin-top: 0;
+    color: #add8e6;
+}
+
+.link-pass:hover {
+    color: blue;
+}
