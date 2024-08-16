@@ -17,7 +17,7 @@ function showCategory(categoryName){
 
 /**
  * Función que recibe por parámetro un array con los datos que se mostrarán en el DOM
- * Los datos se mostrarán dentro del div de id "product-container" y por cada ítem se está creando una nueva product-card en la cual se
+ * Los datos se mostrarán dentro del div de id "big-product-container" y por cada ítem se está creando una nueva product-card en la cual se
  * imprime el campo "catName" del JSON, y los campos "name", "description", "cost", "currency", "soldCount", y "image" de cada item de productArray.
  */
 
@@ -40,30 +40,6 @@ function showProductData(productArray) {
     </div>`
 }
 }
-
-
-// Escribe el código necesario para realizar el fetch al archivo con los datos y mostrar los productos con la función showProductData
-/*function getJSONProductData(url){
-  let result = {};
-  return fetch(DATA_URL) 
-  .then(response => {
-    if (response.ok) {
-      return response.json();
-    }else{
-      throw Error(response.statusText);
-    }
-  })
-  .then(function(response) {
-        result.status = 'ok';
-        result.data = response;
-        return result;
-  })
-  .catch(function(error) {
-      result.status = 'error';
-      result.data = error;
-      return result;
-  });
-} //** */
 
 
 getJSONData(PRODUCT_DATA_URL).then(function(resultObj){
