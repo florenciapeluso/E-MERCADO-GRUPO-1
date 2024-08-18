@@ -2,7 +2,7 @@
 .card-body,
 .container,
 .site-header {
-  font-family: 'Verdana', serif !important;
+  font-family: "Verdana", serif !important;
 }
 
 .jumbotron .display-4 {
@@ -32,8 +32,8 @@ nav a {
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,12 +73,12 @@ footer {
 }
 
 footer p {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header a {
   color: white;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .site-header .dropdown-menu a {
@@ -86,7 +86,7 @@ footer p {
 }
 
 .dropzone {
-  border: 2px dashed #0087F7;
+  border: 2px dashed #0087f7;
   border-radius: 5px;
   background: white;
 }
@@ -187,4 +187,64 @@ a.custom-card:hover {
 
 .checked {
   color: orange;
+}
+
+/* Estilos para el contenedor de productos */
+.product-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Estilos para cada tarjeta de producto */
+.product-card {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+/* Imagen del producto */
+.product-image {
+  width: 20%;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+/* Detalles del producto */
+.product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nombre, descripción, precio */
+.product-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-description {
+  font-size: 18px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+/* Estilo para la cantidad de vendidos */
+.product-soldCount {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-left: 20px;
 }
