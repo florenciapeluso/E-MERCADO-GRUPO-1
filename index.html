@@ -9,29 +9,10 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="js/session-manager.js"></script>
 </head>
 
 <body>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const sessionUser = getCookie("sessionUser");
-
-    if (!sessionUser) {
-        window.location.href = "login.html";
-    } else {
-        console.log(`Sesión activa para: ${sessionUser}`);
-    }
-});
-
-  </script>
-
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

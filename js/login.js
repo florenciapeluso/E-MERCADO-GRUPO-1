@@ -35,23 +35,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Redirigir al usuario a la página de inicio (o cualquier otra)
         window.location.replace("index.html");
     });
-
-    // Verificar si hay una sesión activa
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    const sessionUser = getCookie("sessionUser");
-
-    if (sessionUser) {
-        console.log(`Sesión activa para: ${sessionUser}`);
-        // Redirigir al usuario automáticamente si ya tiene una sesión activa
-        window.location.replace("index.html");
-    } else {
-        console.log("No hay una sesión activa.");
-    }
 });
 
 
