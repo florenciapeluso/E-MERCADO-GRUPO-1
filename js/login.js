@@ -11,13 +11,6 @@ document.addEventListener("DOMContentLoaded", function() {
         passwordInput.type = togglePassword.checked ? "text" : "password";
     });
 
-    // Verificar si el almacenamiento de sesión existe
-    if (sessionStorage.getItem('session')) {
-        // Si el almacenamiento de sesión existe, redirigir a index.html
-        window.location.replace('index.html');
-        return;
-    }
-
     // Manejar el envío del formulario
     loginForm.addEventListener("submit", function(event) {
         event.preventDefault(); // Prevenir el envío del formulario
@@ -33,12 +26,30 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Configurar el almacenamiento de sesión
-        sessionStorage.setItem('session', 'true');
-        console.log("Sesión configurada en sessionStorage.");
+        // Guardar la sesión en una cookie
+        document.cookie = `sessionUser=${username}; path=/;`;
 
-        // Redirigir al usuario autenticado usando replace() para evitar volver atrás
-        window.location.replace('index.html');
+
+        // Redirigir al usuario a la página de inicio (o cualquier otra)
+        window.location.href = "index.html";
     });
+
+    // Verificar si hay una sesión activa
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    const sessionUser = getCookie("sessionUser");
+
+    if (sessionUser) {
+        console.log(`Sesión activa para: ${sessionUser}`);
+        // Redirigir al usuario automáticamente si ya tiene una sesión activa
+        window.location.href = "index.html";
+    } else {
+        console.log("No hay una sesión activa.");
+    }
 });
+
 
