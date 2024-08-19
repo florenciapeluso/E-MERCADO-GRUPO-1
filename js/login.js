@@ -1,47 +1,38 @@
-document.getElementById('btn-submit').addEventListener('click', function(event) {
-    event.preventDefault(); 
-
-    const username = document.getElementById('user').value;
-    const password = document.getElementById('password').value;
-
-    
-
-   
-    if (username === 'usuario_valido' && password === 'contraseña_valida') {
-        document.cookie = "session=true; path=/;";
-        window.location.href = 'portada.html';
-    } else {
-        alert('Usuario o contraseña incorrectos.');
-    }
-});
-
 document.addEventListener("DOMContentLoaded", function() {
-    // referencia a los elementos del form
     const loginForm = document.querySelector("form");
     const userInput = document.getElementById("user");
     const passwordInput = document.getElementById("password");
     const togglePassword = document.getElementById("togglePassword");
-    const btnSubmit = document.getElementById("btn-submit");
 
-    // mostrar/ocultar la contraseña
+    // Mostrar/ocultar la contraseña
     togglePassword.addEventListener("change", function() {
-        if (togglePassword.checked) {
-            passwordInput.type = "text";
-        } else {
-            passwordInput.type = "password";
-        }
+        passwordInput.type = togglePassword.checked ? "text" : "password";
     });
 
-    // validacion del formulario
     loginForm.addEventListener("submit", function(event) {
-        // evitar el envio del formulario si hay campos vacios
-        if (userInput.value.trim() === "" || passwordInput.value.trim() === "") {
+        event.preventDefault(); // Prevenir el envío del formulario
+
+        const username = userInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (username === "" || password === "") {
             alert("Por favor, complete todos los campos.");
-            event.preventDefault(); 
-        } else {
-            event.preventDefault();
-            console.log("Formulario enviado con éxito.");
-            window.location.replace("index.html"); // redirige a index.html una vez que se haya completado los campos del login
+            return;
         }
+
+        // Configurar la cookie de sesión
+        document.cookie = "session=true; path=/"; // Cookie sin fecha de expiración
+
+        window.location.href = 'index.html'; // Redirigir al usuario autenticado
     });
+});
+
+
+ // Mostrar/ocultar la contraseña
+ togglePassword.addEventListener("change", function() {
+    if (togglePassword.checked) {
+        passwordInput.type = "text";
+    } else {
+        passwordInput.type = "password";
+    }
 });
