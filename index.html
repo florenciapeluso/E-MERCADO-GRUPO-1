@@ -13,18 +13,19 @@
 
 <body>
   <script>
-   document.addEventListener("DOMContentLoaded", function() {
-    // Verificar si la cookie o almacenamiento local de sesión existe
-    if (!document.cookie.split('; ').find(row => row.startsWith('session=')) && !localStorage.getItem('session')) {
-        // Si la cookie o almacenamiento local no existe, redirigir a login.html
-        window.location.replace('login.html');
-        return;
-    }
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verificar si el almacenamiento de sesión existe
+        if (!sessionStorage.getItem('session')) {
+            // Si el almacenamiento de sesión no existe, redirigir a login.html
+            window.location.replace('login.html');
+            return;
+        }
 
-    console.log("Página de inicio cargada.");
-});
+        console.log("Página de inicio cargada.");
+    });
+</script>
 
-  </script>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

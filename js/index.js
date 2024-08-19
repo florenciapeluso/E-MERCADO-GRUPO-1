@@ -13,15 +13,3 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 });
 
-window.onload = function() {
-    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-        const [name, value] = cookie.split('=');
-        acc[name] = value;
-        return acc;
-    }, {});
-
-    if (!cookies.session) {
-        // Redirecciona al login si no hay una sesión activa
-        window.location.href = 'login.html';
-    }
-};

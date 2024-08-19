@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
         passwordInput.type = togglePassword.checked ? "text" : "password";
     });
 
-    // Verificar si la cookie o almacenamiento local de sesión existe
-    if (document.cookie.split('; ').find(row => row.startsWith('session=')) || localStorage.getItem('session')) {
-        // Si la cookie o almacenamiento local existe, redirigir a index.html
+    // Verificar si el almacenamiento de sesión existe
+    if (sessionStorage.getItem('session')) {
+        // Si el almacenamiento de sesión existe, redirigir a index.html
         window.location.replace('index.html');
         return;
     }
@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Configurar la cookie y almacenamiento local de sesión
-        document.cookie = "session=true; path=/"; // Cookie sin fecha de expiración
-        localStorage.setItem('session', 'true');
-        console.log("Sesión configurada en cookie y localStorage.");
+        // Configurar el almacenamiento de sesión
+        sessionStorage.setItem('session', 'true');
+        console.log("Sesión configurada en sessionStorage.");
 
         // Redirigir al usuario autenticado usando replace() para evitar volver atrás
         window.location.replace('index.html');
     });
 });
+

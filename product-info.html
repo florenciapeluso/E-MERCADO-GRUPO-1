@@ -14,19 +14,18 @@
 
 <body>
   <script>
-    window.onload = function() {
-    const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-        const [name, value] = cookie.split('=');
-        acc[name] = value;
-        return acc;
-    }, {});
+    document.addEventListener("DOMContentLoaded", function() {
+        // Verificar si el almacenamiento de sesión existe
+        if (!sessionStorage.getItem('session')) {
+            // Si el almacenamiento de sesión no existe, redirigir a login.html
+            window.location.replace('login.html');
+            return;
+        }
 
-    if (!cookies.session) {
-        // Redirecciona al login si no hay una sesión activa
-        window.location.href = 'login.html';
-    }
-};
+        console.log("Página de inicio cargada.");
+    });
 </script>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
