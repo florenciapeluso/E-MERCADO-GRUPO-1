@@ -10,9 +10,31 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <script src="desafiate.js" defer></script>
 </head>
 
 <body>
+  <script>
+    window.onload = function() {
+        if (sessionStorage.getItem("auth") !== "true") {
+            window.location.href = "login.html";
+        }
+    };
+</script>
+<script>
+  window.onload = function() {
+  const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
+      const [name, value] = cookie.split('=');
+      acc[name] = value;
+      return acc;
+  }, {});
+
+  if (!cookies.session) {
+      // Redirecciona al login si no hay una sesión activa
+      window.location.href = 'login.html';
+  }
+};
+</script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
