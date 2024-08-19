@@ -6,23 +6,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     console.log("Login script cargado.");
 
-    // Verificar si la cookie de sesión ya existe
-    if (document.cookie.split('; ').find(row => row.startsWith('session='))) {
-        // Si la cookie existe, redirigir a index.html
-        window.location.replace('index.html');
-        return;
-    }
-
     // Mostrar/ocultar la contraseña
     togglePassword.addEventListener("change", function() {
         passwordInput.type = togglePassword.checked ? "text" : "password";
     });
-    
-        // Validar que los campos no estén vacíos
-        if (username === "" || password === "") {
-            alert("Por favor, complete todos los campos.");
-            return;
-        }
+
+    // Verificar si la cookie o almacenamiento local de sesión existe
+    if (document.cookie.split('; ').find(row => row.startsWith('session=')) || localStorage.getItem('session')) {
+        // Si la cookie o almacenamiento local existe, redirigir a index.html
+        window.location.replace('index.html');
+        return;
+    }
 
     // Manejar el envío del formulario
     loginForm.addEventListener("submit", function(event) {
@@ -33,10 +27,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         console.log("Formulario enviado.");
 
+        // Validar que los campos no estén vacíos
+        if (username === "" || password === "") {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
 
-        // Configurar la cookie de sesión
+        // Configurar la cookie y almacenamiento local de sesión
         document.cookie = "session=true; path=/"; // Cookie sin fecha de expiración
-        console.log("Cookie configurada.");
+        localStorage.setItem('session', 'true');
+        console.log("Sesión configurada en cookie y localStorage.");
 
         // Redirigir al usuario autenticado usando replace() para evitar volver atrás
         window.location.replace('index.html');

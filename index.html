@@ -13,22 +13,17 @@
 
 <body>
   <script>
-    window.onload = function() {
-      // Leer las cookies y convertirlas en un objeto
-      const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
-        const [name, value] = cookie.split('=');
-        acc[name] = value;
-        return acc;
-      }, {});
+   document.addEventListener("DOMContentLoaded", function() {
+    // Verificar si la cookie o almacenamiento local de sesión existe
+    if (!document.cookie.split('; ').find(row => row.startsWith('session=')) && !localStorage.getItem('session')) {
+        // Si la cookie o almacenamiento local no existe, redirigir a login.html
+        window.location.replace('login.html');
+        return;
+    }
 
-      console.log('Cookies:', cookies); // Verifica en la consola del navegador
+    console.log("Página de inicio cargada.");
+});
 
-      // Verifica si la cookie de sesión existe y su valor es 'true'
-      if (cookies.session !== 'true') {
-        // Redirecciona al login si no hay una sesión activa
-        window.location.href = 'login.html';
-      }
-    };
   </script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
