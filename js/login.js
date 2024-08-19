@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (sessionUser) {
         console.log(`Sesión activa para: ${sessionUser}`);
         // Redirigir al usuario automáticamente si ya tiene una sesión activa
-        window.location.href = "index.html";
+        window.location.replace("index.html");
     } else {
         console.log("No hay una sesión activa.");
     }
