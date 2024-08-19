@@ -26,12 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        
+         //COOKIES
         // Guardar la sesión en una cookie
         document.cookie = `sessionUser=${username}; path=/;`;
 
 
         // Redirigir al usuario a la página de inicio (o cualquier otra)
-        window.location.href = "index.html";
+        window.location.replace("index.html");
     });
 
     // Verificar si hay una sesión activa
