@@ -10,8 +10,8 @@ const pageNameContainer = document.getElementById("page-name-container"); // "Tr
  * Categoría */
 
 function showCategory(categoryName) {
-  pageNameContainer.innerHTML += `<h1>Productos</h1>
-    <h2>${categoryName}</h2>`;
+  pageNameContainer.innerHTML += `<h1 class= "fw-bold">Productos</h1>
+    <h2 class="fw-bold">${categoryName}</h2>`;
 }
 
 /**
@@ -44,10 +44,10 @@ function showProductData(productArray) {
                         <h5 class="card-title product-name">${item.name}</h5>
                         <p class="card-text product-description">` + limitarCaracteres(item.description) + `</p>
                         <div class="row">
-                            <div class="col-8 product-price">
+                            <div class="col-6 product-price">
                                 <p>${item.cost} ${item.currency}</p>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-6 text-center">
                                 <p class="product-soldCount">${item.soldCount} vendidos</p>
                             </div>
                         </div>
