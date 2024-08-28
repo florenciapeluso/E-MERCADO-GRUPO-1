@@ -20,7 +20,7 @@ function showCategory(categoryName) {
  * imprime el campo "catName" del JSON, y los campos "name", "description", "cost", "currency", "soldCount", y "image" de cada item de productArray.
  */
 
-function limitarCaracteres(texto, limite = 65) {
+function limitarCaracteres(texto, limite = 55) {
   // Si el texto es más corto que el límite, lo devolvemos tal cual
   if (texto.length <= limite) {
     return texto;
@@ -47,7 +47,6 @@ function showProductData(productArray) {
                             <div class="col-8 product-price">
                                 <p>${item.cost} ${item.currency}</p>
                             </div>
-          
                             <div class="col-4 text-center">
                                 <p class="product-soldCount">${item.soldCount} vendidos</p>
                             </div>
