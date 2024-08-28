@@ -1,7 +1,7 @@
 const PRODUCT_DATA_URL =
   "https://japceibal.github.io/emercado-api/cats_products/101.json"; // URL con los datos a mostrar (en este caso, solo autos)
 
-const productContainer = document.getElementById("big-product-container"); // "Traemos" utilizando el DOM el div de class "product-container" para colocar la información en él
+const productContainer = document.getElementById("card-container"); // "Traemos" utilizando el DOM el div de class "product-container" para colocar la información en él
 
 const pageNameContainer = document.getElementById("page-name-container"); // "Traemos" utilizando el DOM el div de class "page-name" para colocar la información en él
 
@@ -10,8 +10,8 @@ const pageNameContainer = document.getElementById("page-name-container"); // "Tr
  * Categoría */
 
 function showCategory(categoryName) {
-  pageNameContainer.innerHTML += `<h1>Productos</h1>
-    <h2>${categoryName}</h2>`;
+  pageNameContainer.innerHTML += `<h1 class= "fw-bold">Productos</h1>
+    <h2 class="fw-bold">${categoryName}</h2>`;
 }
 
 /**
@@ -20,23 +20,47 @@ function showCategory(categoryName) {
  * imprime el campo "catName" del JSON, y los campos "name", "description", "cost", "currency", "soldCount", y "image" de cada item de productArray.
  */
 
+function limitarCaracteres(texto, limite = 55) {
+  // Si el texto es más corto que el límite, lo devolvemos tal cual
+  if (texto.length <= limite) {
+    return texto;
+  }
+
+  // Cortamos el texto al límite de caracteres
+  let textoLimitado = texto.slice(0, limite);
+
+  // Añadimos puntos suspensivos
+  return textoLimitado + '...';
+}
+
 function showProductData(productArray) {
   productContainer.innerHTML = "";
   // Iteramos sobre los productos y los insertamos en el HTML
   for (const item of productArray) {
-    productContainer.innerHTML += `
-          <div class="product-card">
-              <img src="${item.image}" class="product-image" alt="${item.name}">
-              <div class="product-details">
-                  <p class="product-name">${item.name}</p>
-                  <p class="product-description">${item.description}</p>
-                  <p class="product-price">${item.cost} ${item.currency}</p>
-              </div>
-              <p class="product-soldCount">${item.soldCount} vendidos</p>
-          </div>
-      `;
+    productContainer.innerHTML += `<div class="col-sm-6 col-lg-4">
+                <div class="card mb-3">
+                    <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                    <div class="card-body">
+                        <h5 class="card-title product-name">${item.name}</h5>
+                        <p class="card-text product-description">` + limitarCaracteres(item.description) + `</p>
+                        <div class="row">
+                            <div class="col-6 product-price">
+                                <p>${item.cost} ${item.currency}</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p class="product-soldCount">${item.soldCount} vendidos</p>
+                            </div>
+                        </div>
+                        <div class="row mx-auto">
+                            <button class="btn btn-dark">Añadir al carrito</button>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
   }
 }
+
+
 
 getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
   if (resultObj.status === "ok") {
@@ -45,3 +69,5 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
     showProductData(productData.products);
   }
 });
+
+
