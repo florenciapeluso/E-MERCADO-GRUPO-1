@@ -33,3 +33,13 @@ function checkSession() {
 }
 
 checkSession();
+
+document.addEventListener("DOMContentLoaded", function(){
+    // Obtener el nombre del usuario desde la cookie
+    const userName = getCookie('sessionUser');
+    
+    // Mostrar el nombre en la barra de navegación
+    if (userName) {
+        document.getElementById('user-name').innerHTML = userName;
+    } })
+
