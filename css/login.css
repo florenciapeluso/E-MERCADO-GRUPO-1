@@ -19,7 +19,7 @@ body {
 }
 
 .logo-ecommerce {
-    width: 40%;
+    width: 50%;
 }
 
 .form-col-fixed {
@@ -98,16 +98,6 @@ h1 {
 
 
 
-@media only screen and (max-width: 575px) {
-    .form-col-fixed {
-        width: 450px;
-    }
-    .form {
-        padding: 1.2em 1.2em;
-    }
-}
-
-
 @media only screen and (max-width: 991px) {
     .form-col-fixed {
         width: 600px;
@@ -117,4 +107,14 @@ h1 {
         width: 40%;
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .form-col-fixed {
+        width: 400px;
+    }
+    .form {
+        padding: 1.2em 1.2em;
+    }
+}
+
 
