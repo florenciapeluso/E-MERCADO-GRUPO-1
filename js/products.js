@@ -1,5 +1,7 @@
+var catID = localStorage.getItem("catID");
+
 const PRODUCT_DATA_URL =
-  "https://japceibal.github.io/emercado-api/cats_products/101.json"; // URL con los datos a mostrar (en este caso, solo autos)
+  `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 
 const productContainer = document.getElementById("card-container"); // "Traemos" utilizando el DOM el div de class "product-container" para colocar la información en él
 
@@ -20,7 +22,7 @@ function showCategory(categoryName) {
  * imprime el campo "catName" del JSON, y los campos "name", "description", "cost", "currency", "soldCount", y "image" de cada item de productArray.
  */
 
-function limitarCaracteres(texto, limite = 55) {
+function limitarCaracteres(texto, limite = 50) {
   // Si el texto es más corto que el límite, lo devolvemos tal cual
   if (texto.length <= limite) {
     return texto;
