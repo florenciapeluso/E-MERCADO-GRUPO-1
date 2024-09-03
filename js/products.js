@@ -73,3 +73,17 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
 });
 
 
+// Para borrar el contenido de la barra de busqueda
+
+const searchInput = document.querySelector('.search-input');
+const clearIcon = document.querySelector('.clear-icon');
+
+searchInput.addEventListener('input', function () {
+  clearIcon.style.display = this.value.length ? 'block' : 'none';
+});
+
+clearIcon.addEventListener('click', function () {
+  searchInput.value = '';
+  this.style.display = 'none';
+  searchInput.focus();
+});
