@@ -17,7 +17,7 @@ const pageNameContainer = document.getElementById("page-name-container"); // "Tr
 **/
 
 function showCategory(categoryName) {
-  pageNameContainer.innerHTML += `<h1 class= "fw-bold">Productos</h1>
+  pageNameContainer.innerHTML += `
     <h2 class="fw-bold">${categoryName}</h2>`;
 }
 
