@@ -1,15 +1,27 @@
 var catID = localStorage.getItem("catID");
+let productData = []
+let searchQuery = "";
 
 const PRODUCT_DATA_URL =
   `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
 
-const productContainer = document.getElementById("card-container"); // "Traemos" utilizando el DOM el div de class "product-container" para colocar la información en él
+const productContainer = document.getElementById("card-container"); // "Traemos" utilizando el DOM el div de class "card-container" para colocar la información en él
 
 const pageNameContainer = document.getElementById("page-name-container"); // "Traemos" utilizando el DOM el div de class "page-name" para colocar la información en él
 
+// Fetch product data
+getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
+  if (resultObj.status === "ok") {
+    productData = resultObj.data;
+    showCategory(productData.catName);
+    showProductData(productData.products);
+  }
+});
+
 /** Función que recibe el nombre de la categoría e imprime como título
  * Productos
- * Categoría */
+ * Categoría 
+**/
 
 function showCategory(categoryName) {
   pageNameContainer.innerHTML += `<h1 class= "fw-bold">Productos</h1>
@@ -33,6 +45,29 @@ function limitarCaracteres(texto, limite = 50) {
 
   // Añadimos puntos suspensivos
   return textoLimitado + '...';
+}
+
+// Funcion para filtrar productos
+function filterProducts(productArray) {
+  let filteredProducts = productArray.filter(
+    (product) => {
+      let productName = product.name.toUpperCase();
+      let productDescription = product.description.toUpperCase();
+      let query = searchQuery.toUpperCase();
+
+      // Se debe modificar la siguiente linea para que tome valor true solo cuando
+      // el producto actual se encuentra en el rango de precio definido por el fitro
+      // Ejemplo: product.cost >= min && product.cost <= max
+      let isInPriceRange = true
+
+      return (productName.includes(query) || productDescription.includes(query)) && isInPriceRange;
+    }
+  )
+
+  // Aquí abajo se hace el ordenamiento, que debe guardarse en otra variable 
+  // y llamar al showProductData con la lista ya ordenada.
+
+  showProductData(filteredProducts);
 }
 
 function showProductData(productArray) {
@@ -62,28 +97,23 @@ function showProductData(productArray) {
   }
 }
 
-
-
-getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
-  if (resultObj.status === "ok") {
-    let productData = resultObj.data;
-    showCategory(productData.catName);
-    showProductData(productData.products);
-  }
-});
-
-
 // Para borrar el contenido de la barra de busqueda
-
 const searchInput = document.querySelector('.search-input');
 const clearIcon = document.querySelector('.clear-icon');
 
 searchInput.addEventListener('input', function () {
   clearIcon.style.display = this.value.length ? 'block' : 'none';
+  onSearchQueryChange(this.value);
 });
 
 clearIcon.addEventListener('click', function () {
   searchInput.value = '';
+  onSearchQueryChange('');
   this.style.display = 'none';
   searchInput.focus();
 });
+
+function onSearchQueryChange(query) {
+  searchQuery = query;
+  filterProducts(productData.products);
+}
