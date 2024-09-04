@@ -9,14 +9,7 @@ const productContainer = document.getElementById("card-container"); // "Traemos"
 
 const pageNameContainer = document.getElementById("page-name-container"); // "Traemos" utilizando el DOM el div de class "page-name" para colocar la información en él
 
-// Fetch product data
-getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
-  if (resultObj.status === "ok") {
-    productData = resultObj.data;
-    showCategory(productData.catName);
-    showProductData(productData.products);
-  }
-});
+
 
 /** Función que recibe el nombre de la categoría e imprime como título
  * Productos
@@ -76,9 +69,9 @@ function showProductData(productArray) {
   for (const item of productArray) {
     productContainer.innerHTML += `<div class="col-sm-6 col-lg-4">
                 <div class="card mb-3">
-                    <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                    <img src="${item.image}" class="card-img-top" alt="${item.name}" id="productImage">
                     <div class="card-body">
-                        <h5 class="card-title product-name">${item.name}</h5>
+                        <h5 class="card-title product-name" id="productName">${item.name}</h5>
                         <p class="card-text product-description">` + limitarCaracteres(item.description) + `</p>
                         <div class="row">
                             <div class="col-6 product-price">
@@ -117,3 +110,38 @@ function onSearchQueryChange(query) {
   searchQuery = query;
   filterProducts(productData.products);
 }
+
+function getProductID(productArray){
+  let cards=  document.getElementsByClassName("card");
+for (let i=0; i<productArray.length; i++){
+  cards[i].addEventListener("click", function(){
+    localStorage.setItem("productID", productArray[i].id);
+    
+    window.location= "product-info.html";
+  })
+
+}}
+/* 
+  for (item of productArray){
+    document.getElementById("productName").addEventListener("click", function() {
+      localStorage.setItem("productID", item.id);
+      window.location = "product-info.html";
+})};
+  for (item of productArray){
+    document.getElementById("productImage").addEventListener("click", function() {
+      localStorage.setItem("productID", item.id);
+      window.location = "product-info.html";
+});
+
+}}
+*/
+
+// Fetch and show product data
+getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
+  if (resultObj.status === "ok") {
+    productData = resultObj.data;
+    showCategory(productData.catName);
+    showProductData(productData.products);
+    getProductID(productData.products);
+  }
+});
