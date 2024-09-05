@@ -44,9 +44,9 @@ function limitarCaracteres(texto, limite = 50) {
 function filterProducts(productArray) {
   let filteredProducts = productArray.filter(
     (product) => {
-      let productName = product.name.toUpperCase();
-      let productDescription = product.description.toUpperCase();
-      let query = searchQuery.toUpperCase();
+      let productName = normalizeText(product.name);
+      let productDescription = normalizeText(product.description);
+      let query = normalizeText(searchQuery);
 
       // Se debe modificar la siguiente linea para que tome valor true solo cuando
       // el producto actual se encuentra en el rango de precio definido por el fitro
@@ -56,11 +56,15 @@ function filterProducts(productArray) {
       return (productName.includes(query) || productDescription.includes(query)) && isInPriceRange;
     }
   )
-
-  // Aquí abajo se hace el ordenamiento, que debe guardarse en otra variable 
-  // y llamar al showProductData con la lista ya ordenada.
-
   showProductData(filteredProducts);
+}
+
+// Para normalizar los textos (ignorar tildes y mayúsculas)
+function normalizeText(text) {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase();
 }
 
 function showProductData(productArray) {
@@ -88,6 +92,7 @@ function showProductData(productArray) {
                 </div>
             </div>`;
   }
+  getProductID(productArray);
 }
 
 // Para borrar el contenido de la barra de busqueda
@@ -111,16 +116,17 @@ function onSearchQueryChange(query) {
   filterProducts(productData.products);
 }
 
-function getProductID(productArray){
-  let cards=  document.getElementsByClassName("card");
-for (let i=0; i<productArray.length; i++){
-  cards[i].addEventListener("click", function(){
-    localStorage.setItem("productID", productArray[i].id);
-    
-    window.location= "product-info.html";
-  })
+function getProductID(productArray) {
+  let cards = document.getElementsByClassName("card");
+  for (let i = 0; i < productArray.length; i++) {
+    cards[i].addEventListener("click", function () {
+      localStorage.setItem("productID", productArray[i].id);
 
-}}
+      window.location = "product-info.html";
+    })
+
+  }
+}
 /* 
   for (item of productArray){
     document.getElementById("productName").addEventListener("click", function() {
@@ -142,6 +148,5 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
     productData = resultObj.data;
     showCategory(productData.catName);
     showProductData(productData.products);
-    getProductID(productData.products);
   }
 });
