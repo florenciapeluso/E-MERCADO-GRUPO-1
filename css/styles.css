@@ -189,7 +189,6 @@ a.custom-card:hover {
   color: orange;
 }
 
-
 /* Nombre, descripción, precio */
 .product-name {
   font-weight: bold;
@@ -218,10 +217,7 @@ a.custom-card:hover {
   margin-top: 2%;
   margin-bottom: 2%;
   text-align: center;
-
-
 }
-
 
 /* Estilos de la barra de búsqueda */
 .search-container {
