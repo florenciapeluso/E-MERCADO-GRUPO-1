@@ -260,3 +260,11 @@ a.custom-card:hover {
 .clear-icon:hover {
   color: #333;
 }
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; 
+  gap: 5px; 
+  margin-right: 10px;
+}
