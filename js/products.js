@@ -40,7 +40,10 @@ function limitarCaracteres(texto, limite = 50) {
 
   // Añadimos puntos suspensivos
   return textoLimitado + '...';
+  
 }
+
+
 
 // Funcion para filtrar productos
 function filterProducts(productArray) {
@@ -114,9 +117,14 @@ buttonSortRelevance.addEventListener('click', () =>{
 })
 
 buttonClearFilters.addEventListener('click', ()=> {
- // document.getElementById ('min-price').value = ''; 
-  // document.getElementById ('max-price').value = '';
-  sortProducts(0); //llama funcion ordenar
+  document.getElementById("limpiarprecio").addEventListener("click", function () {
+  document.getElementById('preciominimo').value = "";
+  document.getElementById('preciomaximo').value = "";
+    
+    // Vuelve al listado de productos
+    sortProducts(0);
+    });
+  
 })
 
 // Para normalizar los textos (ignorar tildes y mayúsculas)
@@ -210,3 +218,32 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
     showProductData(productData.products);
   }
 });
+
+
+//BOTON FILTRAR POR PRECIO
+document.getElementById("Filtrarprecio").addEventListener("click", function () {
+  filtrarproductosporprecio(productData.products);
+});
+
+
+
+
+//FUNCION FILTRAR POR PRECIO 
+function filtrarproductosporprecio(productArray) {
+  let minPrice = parseInt(document.getElementById('preciominimo').value) || 0;
+  let maxPrice = parseInt(document.getElementById('preciomaximo').value) || Infinity;
+
+  let productosfiltrados = productArray.filter(
+    (product) => {
+      let productName = normalizeText(product.name);
+      let productDescription = normalizeText(product.description);
+      let query = normalizeText(searchQuery);
+
+      let isInPriceRange = product.cost >= minPrice && product.cost <= maxPrice;
+
+      return (productName.includes(query) || productDescription.includes(query)) && isInPriceRange;
+    }
+  );
+
+  showProductData(productosfiltrados);
+}
