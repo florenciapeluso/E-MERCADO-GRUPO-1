@@ -7,23 +7,23 @@ let minCount = undefined;
 let maxCount = undefined;
 
 function sortCategories(criteria, array){
-    let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
+    let result = []; // se inicializa la variable result como array vacio, aca se almacenara el array ordenado luego 
+    if (criteria === ORDER_ASC_BY_NAME) // ordenar de forma ascendente por nombre (A a Z) 
     {
-        result = array.sort(function(a, b) {
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
-            return 0;
+        result = array.sort(function(a, b) { //toma una función de comparación que recibe dos elementos (a y b)
+            if ( a.name < b.name ){ return -1; } // si a.name es menor que b.name, se retorna -1 para que a venga antes que b
+            if ( a.name > b.name ){ return 1; } // si a.name es mayor que b.name, se retorna 1 para que b venga antes que a
+            return 0; // si son iguales, se retorna 0 y no cambia su posición relativa
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
+    }else if (criteria === ORDER_DESC_BY_NAME){ // ordenar de forma descendente por nombre (Z a A)
         result = array.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
-        result = array.sort(function(a, b) {
-            let aCount = parseInt(a.productCount);
+    }else if (criteria === ORDER_BY_PROD_COUNT){ // ordenar por cantidad de productos, menor a mayor 
+        result = array.sort(function(a, b) { 
+            let aCount = parseInt(a.productCount); // convierte a.productCount y b.productCount en números con parseInt
             let bCount = parseInt(b.productCount);
 
             if ( aCount > bCount ){ return -1; }
@@ -32,7 +32,7 @@ function sortCategories(criteria, array){
         });
     }
 
-    return result;
+    return result; // la funcion retorna el array ordenado de acuerdo con el criterio especificado antes
 }
 
 function setCatID(id) {
