@@ -220,8 +220,8 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
 
 //BOTON FILTRAR POR PRECIO CON FUNCIONALIDAD
 document.getElementById("Filtrarprecio").addEventListener("click", function () {
-  minCost = parseInt(document.getElementById('preciominimo').value) || 0;
-  maxCost = parseInt(document.getElementById('preciomaximo').value) || Number.MAX_SAFE_INTEGER;
+  minCost = parseFloat(document.getElementById('preciominimo').value) || 0;
+  maxCost = parseFloat(document.getElementById('preciomaximo').value) || Number.MAX_SAFE_INTEGER;
 
   filterProducts(productData.products);
 });
