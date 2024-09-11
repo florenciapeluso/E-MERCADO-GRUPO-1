@@ -1,6 +1,8 @@
 var catID = localStorage.getItem("catID");
 let productData = []
 let searchQuery = "";
+let minCount = undefined;
+let maxCount = undefined;
 
 const PRODUCT_DATA_URL =
   `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
@@ -58,6 +60,64 @@ function filterProducts(productArray) {
   )
   showProductData(filteredProducts);
 }
+function sortProducts(criteria) {
+  switch (criteria) {
+    case 1: // Ordenar por precio ascendente
+      productData.products = productData.products.sort(function (a, b) {
+        if (parseInt(a.cost) < parseInt(b.cost)) { return -1; }
+        if (parseInt(a.cost) > parseInt(b.cost)) { return 1; }
+        return 0;
+      });
+      break;
+    case 2: // Ordenar por precio ascendente
+      productData.products = productData.products.sort(function (a, b) {
+        if (parseInt(a.cost) > parseInt(b.cost)) { return -1; }
+        if (parseInt(a.cost) < parseInt(b.cost)) { return 1; }
+        return 0;
+      });
+      break;
+    case 3: // Ordenar por relevancia
+      productData.products = productData.products.sort(function (a, b) {
+        if (parseInt(a.soldCount) > parseInt(b.soldCount)) { return -1; }
+        if (parseInt(a.soldCount) < parseInt(b.soldCount)) { return 1; }
+        return 0;
+      });
+      break;
+    default: // Orden por por defecto por ID
+      productData.products = productData.products.sort(function (a, b) {
+        if (a.id < b.id) { return -1; }
+        if (a.id > b.id) { return 1; }
+        return 0;
+      });
+  }
+  filterProducts(productData.products);
+}
+
+// Captura de botones por sus IDs
+const buttonSortAsc= document.getElementById('sort-asc');
+const buttonSortDesc= document.getElementById('sort-desc');
+const buttonSortRelevance= document.getElementById('sort-relevance');
+const buttonClearFilters= document.getElementById('clear-filters');
+
+//Agregar eventos para los botones
+
+buttonSortAsc.addEventListener('click', () =>{
+  sortProducts(1); //ordena ascendente 
+})
+
+buttonSortDesc.addEventListener('click', () =>{
+  sortProducts(2); //ordena descendente
+})
+
+buttonSortRelevance.addEventListener('click', () =>{
+  sortProducts(3); //por relevancia
+})
+
+buttonClearFilters.addEventListener('click', ()=> {
+ // document.getElementById ('min-price').value = ''; 
+  // document.getElementById ('max-price').value = '';
+  sortProducts(0); //llama funcion ordenar
+})
 
 // Para normalizar los textos (ignorar tildes y mayúsculas)
 function normalizeText(text) {
