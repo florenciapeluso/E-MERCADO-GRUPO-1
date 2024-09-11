@@ -1,8 +1,8 @@
 var catID = localStorage.getItem("catID");
 let productData = []
 let searchQuery = "";
-let minCount = undefined;
-let maxCount = undefined;
+let minCost = 0;
+let maxCost = Number.MAX_SAFE_INTEGER;
 
 const PRODUCT_DATA_URL =
   `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
@@ -40,10 +40,8 @@ function limitarCaracteres(texto, limite = 50) {
 
   // Añadimos puntos suspensivos
   return textoLimitado + '...';
-  
+
 }
-
-
 
 // Funcion para filtrar productos
 function filterProducts(productArray) {
@@ -53,16 +51,14 @@ function filterProducts(productArray) {
       let productDescription = normalizeText(product.description);
       let query = normalizeText(searchQuery);
 
-      // Se debe modificar la siguiente linea para que tome valor true solo cuando
-      // el producto actual se encuentra en el rango de precio definido por el fitro
-      // Ejemplo: product.cost >= min && product.cost <= max
-      let isInPriceRange = true
+      let isInPriceRange = product.cost >= minCost && product.cost <= maxCost;
 
       return (productName.includes(query) || productDescription.includes(query)) && isInPriceRange;
     }
   )
   showProductData(filteredProducts);
 }
+
 function sortProducts(criteria) {
   switch (criteria) {
     case 1: // Ordenar por precio ascendente
@@ -97,34 +93,35 @@ function sortProducts(criteria) {
 }
 
 // Captura de botones por sus IDs
-const buttonSortAsc= document.getElementById('sort-asc');
-const buttonSortDesc= document.getElementById('sort-desc');
-const buttonSortRelevance= document.getElementById('sort-relevance');
-const buttonClearFilters= document.getElementById('clear-filters');
+const buttonSortAsc = document.getElementById('sort-asc');
+const buttonSortDesc = document.getElementById('sort-desc');
+const buttonSortRelevance = document.getElementById('sort-relevance');
+const buttonClearFilters = document.getElementById('clear-filters');
 
 //Agregar eventos para los botones
-
-buttonSortAsc.addEventListener('click', () =>{
+buttonSortAsc.addEventListener('click', () => {
   sortProducts(1); //ordena ascendente 
 })
 
-buttonSortDesc.addEventListener('click', () =>{
+buttonSortDesc.addEventListener('click', () => {
   sortProducts(2); //ordena descendente
 })
 
-buttonSortRelevance.addEventListener('click', () =>{
+buttonSortRelevance.addEventListener('click', () => {
   sortProducts(3); //por relevancia
 })
 
-buttonClearFilters.addEventListener('click', ()=> {
-  document.getElementById("limpiarprecio").addEventListener("click", function () {
+buttonClearFilters.addEventListener('click', () => {
+  // Limpiar los inputs
   document.getElementById('preciominimo').value = "";
   document.getElementById('preciomaximo').value = "";
-    
-    // Vuelve al listado de productos
-    sortProducts(0);
-    });
-  
+
+  // Restabler el orden por defecto de las variables
+  minCost = 0;
+  maxCost = Number.MAX_SAFE_INTEGER;
+
+  // Llamar a la funcion sort para restablecer por defecto el listado de productos
+  sortProducts(0);
 })
 
 // Para normalizar los textos (ignorar tildes y mayúsculas)
@@ -168,7 +165,7 @@ const searchInput = document.querySelector('.search-input');
 //const clearIcon = document.querySelector('.clear-icon');
 
 searchInput.addEventListener('input', function () {
-//   clearIcon.style.display = this.value.length ? 'block' : 'none';
+  //   clearIcon.style.display = this.value.length ? 'block' : 'none';
   onSearchQueryChange(this.value);
 });
 
@@ -195,6 +192,7 @@ function getProductID(productArray) {
 
   }
 }
+
 /* 
   for (item of productArray){
     document.getElementById("productName").addEventListener("click", function() {
@@ -220,30 +218,10 @@ getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
 });
 
 
-//BOTON FILTRAR POR PRECIO
+//BOTON FILTRAR POR PRECIO CON FUNCIONALIDAD
 document.getElementById("Filtrarprecio").addEventListener("click", function () {
-  filtrarproductosporprecio(productData.products);
+  minCost = parseInt(document.getElementById('preciominimo').value) || 0;
+  maxCost = parseInt(document.getElementById('preciomaximo').value) || Number.MAX_SAFE_INTEGER;
+
+  filterProducts(productData.products);
 });
-
-
-
-
-//FUNCION FILTRAR POR PRECIO 
-function filtrarproductosporprecio(productArray) {
-  let minPrice = parseInt(document.getElementById('preciominimo').value) || 0;
-  let maxPrice = parseInt(document.getElementById('preciomaximo').value) || Infinity;
-
-  let productosfiltrados = productArray.filter(
-    (product) => {
-      let productName = normalizeText(product.name);
-      let productDescription = normalizeText(product.description);
-      let query = normalizeText(searchQuery);
-
-      let isInPriceRange = product.cost >= minPrice && product.cost <= maxPrice;
-
-      return (productName.includes(query) || productDescription.includes(query)) && isInPriceRange;
-    }
-  );
-
-  showProductData(productosfiltrados);
-}
