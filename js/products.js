@@ -68,7 +68,7 @@ function sortProducts(criteria) {
         return 0;
       });
       break;
-    case 2: // Ordenar por precio ascendente
+    case 2: // Ordenar por precio descendente
       productData.products = productData.products.sort(function (a, b) {
         if (parseInt(a.cost) > parseInt(b.cost)) { return -1; }
         if (parseInt(a.cost) < parseInt(b.cost)) { return 1; }
