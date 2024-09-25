@@ -160,21 +160,21 @@ function showProductData(productArray) {
   getProductID(productArray);
 }
 
-// Para borrar el contenido de la barra de busqueda
+// Para actualizar y borrar el contenido de la barra de busqueda
 const searchInput = document.querySelector('.search-input');
-//const clearIcon = document.querySelector('.clear-icon');
+const clearIcon = document.querySelector('.clear-icon');
 
 searchInput.addEventListener('input', function () {
-  //   clearIcon.style.display = this.value.length ? 'block' : 'none';
+  clearIcon.style.display = this.value.length ? 'block' : 'none';
   onSearchQueryChange(this.value);
 });
 
-// clearIcon.addEventListener('click', function () {
-//   searchInput.value = '';
-//   onSearchQueryChange('');
-//   this.style.display = 'none';
-//   searchInput.focus();
-// });
+clearIcon.addEventListener('click', function () {
+  searchInput.value = '';
+  onSearchQueryChange('');
+  this.style.display = 'none';
+  searchInput.focus();
+});
 
 function onSearchQueryChange(query) {
   searchQuery = query;
