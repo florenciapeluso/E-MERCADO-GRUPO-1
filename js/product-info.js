@@ -65,3 +65,86 @@ getJSONData(
     showProductInfo(productInfo);
   }
 });
+
+// URL de comentarios para cada producto
+const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
+
+// Fetch para la seccion de los comentarios
+getJSONData(PRODUCT_COMMENTS_URL).then(function (resultObj) {
+  if (resultObj.status === "ok") {
+    showFirstProductComments(resultObj.data)
+  }
+});
+
+// Función para mostrar hasta los primeros 3 comentarios del producto
+function showFirstProductComments(productComments) {
+  let commentsContainer = document.getElementById("product-comments-container");
+
+  if (productComments.length === 0) {
+    commentsContainer.innerHTML += `
+      <p class="m-1 text-secondary">No existen calificaciones para el producto seleccionado.</p>
+    `
+    return
+  }
+
+  let shortCommentsList = productComments.slice(0, 3);
+  for (comment of shortCommentsList) {
+    commentsContainer.innerHTML += `
+        <div class="col mb-2">
+          <div class="card h-100">
+            <div class="card-body">
+              <p>${drawStars(comment.score)}</p>
+              <h6 class="card-title">${comment.user}</h6>
+              <p class="text-secondary">${comment.dateTime}</p>
+              <p class="card-text">${comment.description}</p>
+            </div>
+          </div>
+        </div>
+        `
+  }
+
+  let allCommentContainer = document.getElementById('all-comments-button')
+  if (productComments.length > 3) {
+    updateCommentsModal(productComments)
+
+    let button = document.createElement("button");
+    button.type = "button"
+    button.classList = "mt-3 p-2 btn-text"
+    button.setAttribute('data-bs-toggle', 'modal');
+    button.setAttribute('data-bs-target', '#exampleModalScrollable');
+    button.innerHTML = "Ver todas las calificaciones";
+    allCommentContainer.appendChild(button);
+  }
+}
+
+// Funcion para actualizar el modal con todos los comentarios
+function updateCommentsModal(productComments) {
+  let modalContent = document.getElementById('all-comments-modal');
+  for (comment of productComments) {
+    modalContent.innerHTML += `
+        <div class="card mb-2">
+            <div class="card-body">
+            <p>${drawStars(comment.score)}</p>
+            <h5 class="card-title">${comment.user}</h5>
+            <p class="text-secondary">${comment.dateTime}</p>
+            <p class="card-text">${comment.description}</p>
+          </div>
+        </div>
+      `
+  }
+
+}
+
+// Funcion para dibujar las estrellas
+function drawStars(rating) {
+  let ratingHTML = ""
+  for (let i = 1; i <= 5; i++) {
+    if (i <= rating) {
+      ratingHTML += '<span class="fa fa-star checked-star"></span>';
+    } else {
+      ratingHTML += '<span class="fa fa-star not-checked-star"></span>';
+    }
+  }
+  return ratingHTML;
+}
+

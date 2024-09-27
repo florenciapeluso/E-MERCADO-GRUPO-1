@@ -268,3 +268,19 @@ a.custom-card:hover {
   gap: 5px; 
   margin-right: 10px;
 }
+
+.checked-star {
+  color: orange;
+}
+
+.not-checked-star {
+  color: lightgray;
+}
+
+.btn-text {
+  font-size: 1rem;
+  border: none;
+  background: none;
+  color: blue;
+  text-decoration: underline;
+}
