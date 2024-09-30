@@ -1,48 +1,100 @@
-const productID = localStorage.getItem(`productID`);
+let productID = localStorage.getItem(`productID`);
 
 const pageNameContainer = document.getElementById("page-name-container");
 
 const productInfoContainer = document.getElementById("product-info-container");
 
+const relatedProductsContainer= document.getElementById("related-products");
+
+
 function showProductInfo(productInfo) {
-  productInfoContainer.innerHTML = `<div class="row">
+  let carouselString="";
+  
+    for (i=0; i<productInfo.images.length;i++){
+      if (i==0){
+        carouselString+=      
+        `<div class="carousel-item active">
+        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
+        </div>`
+        
+      }else{
+        carouselString+=   
+        `<div class="carousel-item">
+        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
+        </div>`
+
+      }
+    }
+
+    productInfoContainer.innerHTML += 
+    `<div class="row">
+      <div id="carouselControls" class="carousel slide col-lg-6 col-md-12" data-bs-ride="carousel">
+      <div class="carousel-inner">
+      ${carouselString}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </button>
+      </div>
+
+      <div class="col-lg-6 col-sm-12">
+      <h5 class="card-title product-name">${productInfo.name}</h5>
+      <p class="product-soldCount" style="width: 108.1875px;">${productInfo.soldCount} vendidos</p>
+      <p class="card-text product-description">${productInfo.description}</p>
+      <p class="product-price" >${productInfo.cost} ${productInfo.currency}</p>
+      <button class="btn btn-dark" style="width: 226px; height: 40px;">Agregar al carrito</button>
+
+      </div>
+
+      </div>`;
+
     
-    <div id="carouselControls" class="carousel slide col-lg-6 col-md-12" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-        <img src="${productInfo.images[0]}" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-        <img src="${productInfo.images[1]}" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-        <img src="${productInfo.images[2]}" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-        <img src="${productInfo.images[3]}" class="d-block w-100" alt="...">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    </div>
-
-    <div class="col-lg-6 col-sm-12">
-    <h5 class="card-title product-name">${productInfo.name}</h5>
-    <p class="product-soldCount" style="width: 108.1875px;">${productInfo.soldCount} vendidos</p>
-    <p class="card-text product-description">${productInfo.description}</p>
-    <p class="product-price" >${productInfo.cost} ${productInfo.currency}</p>
-    <button class="btn btn-dark" style="width: 226px; height: 40px;">Agregar al carrito</button>
-
-    </div>
-
-    </div>`;
 }
+
+
+function showRelatedProducts(productInfo){
+  let relatedImages= "";
+
+  for (i=0; i<productInfo.relatedProducts.length; i++){
+    relatedImages+=
+    `<div class="card-related">
+          <div class="card-body">
+            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top">
+            <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
+            <a class="btn btn-primary btn-related" id=${productInfo.relatedProducts[i].id}>Más información</a>
+          </div>
+        </div>`
+    
+  }
+  relatedProductsContainer.innerHTML+=
+  `<h2>Productos Relacionados</h2>
+  <div class="row">
+  <div class="col-sm-6 col-lg-4">
+  ${relatedImages}`
+
+}
+
+function goToRelated(productInfo) {
+  let btns = document.getElementsByClassName("btn-related")
+  let relatedProductsInfo= productInfo.relatedProducts;
+
+  for (let i = 0; i < relatedProductsInfo.length; i++) {
+    btns[i].addEventListener("click", function () {
+      console.log(relatedProductsInfo[i])
+      localStorage.setItem("productID", relatedProductsInfo[i].id);
+
+
+      window.location = "product-info.html";
+    })
+
+  }
+}
+
 
 function showCategory(categoryName) {
   pageNameContainer.innerHTML += `
@@ -55,16 +107,34 @@ function showCategory(categoryName) {
       <h2 class="fw-bold" style="margin-left: 8px;">${categoryName}</h2>
     </div>`;
 }
+
+
+
+
 // Fetch and show product info
-getJSONData(
-  `https://japceibal.github.io/emercado-api/products/${productID}.json`
-).then(function (resultObj) {
-  if (resultObj.status === "ok") {
-    productInfo = resultObj.data;
-    showCategory(productInfo.category);
-    showProductInfo(productInfo);
-  }
-});
+function showData(){
+  getJSONData(
+    `https://japceibal.github.io/emercado-api/products/${productID}.json`
+  ).then(function (resultObj) {
+    if (resultObj.status === "ok") {
+      productInfo = resultObj.data;
+      showCategory(productInfo.category);
+      showProductInfo(productInfo);
+      showRelatedProducts(productInfo);
+      goToRelated(productInfo);
+
+
+    }
+})};
+
+showData();
+
+
+
+
+
+
+
 
 // URL de comentarios para cada producto
 const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
@@ -137,7 +207,7 @@ function updateCommentsModal(productComments) {
 
 // Funcion para dibujar las estrellas
 function drawStars(rating) {
-  let ratingHTML = ""
+  let ratingHTML = "";
   for (let i = 1; i <= 5; i++) {
     if (i <= rating) {
       ratingHTML += '<span class="fa fa-star checked-star"></span>';
@@ -147,4 +217,3 @@ function drawStars(rating) {
   }
   return ratingHTML;
 }
-
