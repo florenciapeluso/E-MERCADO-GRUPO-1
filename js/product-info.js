@@ -4,30 +4,28 @@ const pageNameContainer = document.getElementById("page-name-container");
 
 const productInfoContainer = document.getElementById("product-info-container");
 
-const relatedProductsContainer= document.getElementById("related-products");
+const relatedProductsContainer = document.getElementById("related-products");
 
+const stars = document.querySelectorAll(".star");
+
+const textarea = document.getElementById("floatingTextarea");
 
 function showProductInfo(productInfo) {
-  let carouselString="";
-  
-    for (i=0; i<productInfo.images.length;i++){
-      if (i==0){
-        carouselString+=      
-        `<div class="carousel-item active">
-        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
-        </div>`
-        
-      }else{
-        carouselString+=   
-        `<div class="carousel-item">
-        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
-        </div>`
+  let carouselString = "";
 
-      }
+  for (i = 0; i < productInfo.images.length; i++) {
+    if (i == 0) {
+      carouselString += `<div class="carousel-item active">
+        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
+        </div>`;
+    } else {
+      carouselString += `<div class="carousel-item">
+        <img src="${productInfo.images[i]}" class="d-block w-100" alt="...">
+        </div>`;
     }
+  }
 
-    productInfoContainer.innerHTML += 
-    `<div class="row">
+  productInfoContainer.innerHTML += `<div class="row">
       <div id="carouselControls" class="carousel slide col-lg-6 col-md-12" data-bs-ride="carousel">
       <div class="carousel-inner">
       ${carouselString}
@@ -52,49 +50,39 @@ function showProductInfo(productInfo) {
       </div>
 
       </div>`;
-
-    
 }
 
+function showRelatedProducts(productInfo) {
+  let relatedImages = "";
 
-function showRelatedProducts(productInfo){
-  let relatedImages= "";
-
-  for (i=0; i<productInfo.relatedProducts.length; i++){
-    relatedImages+=
-    `<div class="card-related">
+  for (i = 0; i < productInfo.relatedProducts.length; i++) {
+    relatedImages += `<div class="card-related">
           <div class="card-body">
             <img src="${productInfo.relatedProducts[i].image}" class="card-img-top">
             <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
             <a class="btn btn-primary btn-related" id=${productInfo.relatedProducts[i].id}>Más información</a>
           </div>
-        </div>`
-    
+        </div>`;
   }
-  relatedProductsContainer.innerHTML+=
-  `<h2>Productos Relacionados</h2>
+  relatedProductsContainer.innerHTML += `<h2>Productos Relacionados</h2>
   <div class="row">
   <div class="col-sm-6 col-lg-4">
-  ${relatedImages}`
-
+  ${relatedImages}`;
 }
 
 function goToRelated(productInfo) {
-  let btns = document.getElementsByClassName("btn-related")
-  let relatedProductsInfo= productInfo.relatedProducts;
+  let btns = document.getElementsByClassName("btn-related");
+  let relatedProductsInfo = productInfo.relatedProducts;
 
   for (let i = 0; i < relatedProductsInfo.length; i++) {
     btns[i].addEventListener("click", function () {
-      console.log(relatedProductsInfo[i])
+      console.log(relatedProductsInfo[i]);
       localStorage.setItem("productID", relatedProductsInfo[i].id);
 
-
       window.location = "product-info.html";
-    })
-
+    });
   }
 }
-
 
 function showCategory(categoryName) {
   pageNameContainer.innerHTML += `
@@ -108,11 +96,8 @@ function showCategory(categoryName) {
     </div>`;
 }
 
-
-
-
 // Fetch and show product info
-function showData(){
+function showData() {
   getJSONData(
     `https://japceibal.github.io/emercado-api/products/${productID}.json`
   ).then(function (resultObj) {
@@ -122,19 +107,11 @@ function showData(){
       showProductInfo(productInfo);
       showRelatedProducts(productInfo);
       goToRelated(productInfo);
-
-
     }
-})};
+  });
+}
 
 showData();
-
-
-
-
-
-
-
 
 // URL de comentarios para cada producto
 const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
@@ -142,7 +119,7 @@ const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
 // Fetch para la seccion de los comentarios
 getJSONData(PRODUCT_COMMENTS_URL).then(function (resultObj) {
   if (resultObj.status === "ok") {
-    showFirstProductComments(resultObj.data)
+    showFirstProductComments(resultObj.data);
   }
 });
 
@@ -153,8 +130,8 @@ function showFirstProductComments(productComments) {
   if (productComments.length === 0) {
     commentsContainer.innerHTML += `
       <p class="m-1 text-secondary">No existen calificaciones para el producto seleccionado.</p>
-    `
-    return
+    `;
+    return;
   }
 
   let shortCommentsList = productComments.slice(0, 3);
@@ -170,18 +147,18 @@ function showFirstProductComments(productComments) {
             </div>
           </div>
         </div>
-        `
+        `;
   }
 
-  let allCommentContainer = document.getElementById('all-comments-button')
+  let allCommentContainer = document.getElementById("all-comments-button");
   if (productComments.length > 3) {
-    updateCommentsModal(productComments)
+    updateCommentsModal(productComments);
 
     let button = document.createElement("button");
-    button.type = "button"
-    button.classList = "mt-3 p-2 btn-text"
-    button.setAttribute('data-bs-toggle', 'modal');
-    button.setAttribute('data-bs-target', '#exampleModalScrollable');
+    button.type = "button";
+    button.classList = "mt-3 p-2 btn-text";
+    button.setAttribute("data-bs-toggle", "modal");
+    button.setAttribute("data-bs-target", "#exampleModalScrollable");
     button.innerHTML = "Ver todas las calificaciones";
     allCommentContainer.appendChild(button);
   }
@@ -189,7 +166,7 @@ function showFirstProductComments(productComments) {
 
 // Funcion para actualizar el modal con todos los comentarios
 function updateCommentsModal(productComments) {
-  let modalContent = document.getElementById('all-comments-modal');
+  let modalContent = document.getElementById("all-comments-modal");
   for (comment of productComments) {
     modalContent.innerHTML += `
         <div class="card mb-2">
@@ -200,9 +177,8 @@ function updateCommentsModal(productComments) {
             <p class="card-text">${comment.description}</p>
           </div>
         </div>
-      `
+      `;
   }
-
 }
 
 // Funcion para dibujar las estrellas
@@ -217,3 +193,21 @@ function drawStars(rating) {
   }
   return ratingHTML;
 }
+
+let currentRating = 0;
+stars.forEach((star) => {
+  star.addEventListener("click", () => {
+    const value = star.getAttribute("data-value");
+    stars.forEach((s) => s.classList.remove("selected"));
+    for (let i = 0; i < value; i++) {
+      stars[i].classList.add("selected");
+    }
+    currentRating = value;
+  });
+});
+
+document.getElementById("submit-rating").addEventListener("click", () => {
+  textarea.value = "";
+  stars.forEach((s) => s.classList.remove("selected"));
+  currentRating = 0;
+});
