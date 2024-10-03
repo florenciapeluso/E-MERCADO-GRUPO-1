@@ -264,8 +264,8 @@ a.custom-card:hover {
 .align-right {
   display: flex;
   justify-content: flex-end;
-  align-items: center; 
-  gap: 5px; 
+  align-items: center;
+  gap: 5px;
   margin-right: 10px;
 }
 
@@ -283,4 +283,14 @@ a.custom-card:hover {
   background: none;
   color: blue;
   text-decoration: underline;
+}
+
+.star {
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.selected {
+  color: gold;
 }
