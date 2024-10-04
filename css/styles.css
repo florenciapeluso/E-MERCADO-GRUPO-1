@@ -2,7 +2,7 @@
 .card-body,
 .container,
 .site-header {
-  font-family: "Verdana", serif !important;
+  font-family: "Raleway", serif !important;
 }
 
 .jumbotron .display-4 {
@@ -294,3 +294,89 @@ a.custom-card:hover {
 .star.selected {
   color: gold;
 }
+
+/* Estilo para los productos relacionados */
+
+.productosrel{
+  font-family: Raleway;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+
+
+.card-img-top {
+  width: 60%; /* Cambia esto según lo que desees */
+  height: auto; /* Mantiene la proporción */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.btn-related{
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 100px;
+  border-color: black;
+  
+  
+
+
+}
+
+.btn-related:hover {
+  background-color: rgb(255, 196, 0); 
+  color: black;
+  border-color: rgb(255, 196, 0); 
+}
+
+.card-body {
+  align-content: center;
+}
+
+.card {
+  width: 100%;
+}
+
+#related-products {
+  max-width: 1200px; /* Cambia este valor según lo que desees */
+  margin: 0 auto; /* Centra el carrusel */
+}
+
+.carousel-controls {
+  display: flex; /* Muestra las flechas por defecto */
+  justify-content: space-between; /* Espaciado para pantallas grandes */
+  position: relative; /* Cambia la posición a relativa */
+  margin-top: 10px; /* Margen superior */
+}
+
+@media (max-width: 576px) {
+  .carousel-controls {
+      justify-content: center; /* Centra las flechas en pantallas pequeñas */
+      margin-top: 20px; /* Aumenta el margen si es necesario */
+  }
+  
+  .carousel-control-prev,
+  .carousel-control-next {
+      display: block; /* Muestra las flechas */
+  }
+
+  /* Opcional: Estilos para los iconos de flechas */
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    background-color: black; 
+    border-radius: 50%; 
+    width: 30px; 
+    height: 30px; 
+    background-color: orange; /* Fondo naranja */
+}
+
+}
+
+

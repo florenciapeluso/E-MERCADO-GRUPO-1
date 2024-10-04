@@ -1,4 +1,4 @@
-let productID = localStorage.getItem(`productID`);
+let productID = localStorage.getItem("productID");
 
 const pageNameContainer = document.getElementById("page-name-container");
 
@@ -52,23 +52,43 @@ function showProductInfo(productInfo) {
       </div>`;
 }
 
+//FUNCION PRODUCTOS RELACIONADOS
 function showRelatedProducts(productInfo) {
   let relatedImages = "";
+  let itemsPerSlide = 3; // Total de productos a mostrar por slide
+  let slideCount = Math.ceil(productInfo.relatedProducts.length / itemsPerSlide);
 
-  for (i = 0; i < productInfo.relatedProducts.length; i++) {
-    relatedImages += `<div class="card-related">
-          <div class="card-body">
-            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top">
-            <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
-            <a class="btn btn-primary btn-related" id=${productInfo.relatedProducts[i].id}>Más información</a>
-          </div>
-        </div>`;
+  for (let productIndex = 0; productIndex < productInfo.relatedProducts.length; productIndex++) {
+      // Crear un nuevo carousel-item para cada producto
+      if (productIndex % itemsPerSlide === 0) {
+          relatedImages += `<div class="carousel-item ${productIndex === 0 ? 'active' : ''}">
+              <div class="row justify-content-center">`;
+      }
+
+      // Asegúrate de que cada producto se muestra en su propia columna
+      relatedImages += `
+          <div class="col-12 col-md-6 col-lg-4"> <!-- Cambiar columnas -->
+              <div class="card card-related">
+                  <img src="${productInfo.relatedProducts[productIndex].image}" class="card-img-top img-fluid"> <!-- img-fluid para hacerla responsiva -->
+                  <div class="card-body text-center">
+                      <h5 class="card-title">${productInfo.relatedProducts[productIndex].name}</h5>
+                      <a class="btn btn-primary btn-related" id="${productInfo.relatedProducts[productIndex].id}">Más información</a>
+                  </div>
+              </div>
+          </div>`;
+
+      // Cerrar el carousel-item después de itemsPerSlide
+      if ((productIndex + 1) % itemsPerSlide === 0 || productIndex === productInfo.relatedProducts.length - 1) {
+          relatedImages += `</div></div>`; // Cerrar row y carousel-item
+      }
   }
-  relatedProductsContainer.innerHTML += `<h2>Productos Relacionados</h2>
-  <div class="row">
-  <div class="col-sm-6 col-lg-4">
-  ${relatedImages}`;
+
+  document.getElementById("carousel-items").innerHTML = relatedImages;
 }
+
+
+
+
 
 function goToRelated(productInfo) {
   let btns = document.getElementsByClassName("btn-related");
@@ -83,6 +103,10 @@ function goToRelated(productInfo) {
     });
   }
 }
+
+
+
+
 
 function showCategory(categoryName) {
   pageNameContainer.innerHTML += `
