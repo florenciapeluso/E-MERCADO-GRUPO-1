@@ -1,5 +1,7 @@
 let productID = localStorage.getItem(`productID`);
 
+let productComments = [];
+
 const pageNameContainer = document.getElementById("page-name-container");
 
 const productInfoContainer = document.getElementById("product-info-container");
@@ -128,18 +130,20 @@ const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
 // Fetch para la seccion de los comentarios
 getJSONData(PRODUCT_COMMENTS_URL).then(function (resultObj) {
   if (resultObj.status === "ok") {
-    showFirstProductComments(resultObj.data);
+    productComments = resultObj.data;
+    let localComments = JSON.parse(localStorage.getItem(`productComments_${productID}`)) || [];
+    showFirstProductComments(localComments, productComments);
   }
 });
 
 // Función para mostrar hasta los primeros 3 comentarios del producto
-function showFirstProductComments(productComments) {
+function showFirstProductComments(localComments, productComments) {
   let commentsContainer = document.getElementById("product-comments-container");
+  commentsContainer.innerHTML = "";
 
-  let localComments = JSON.parse(localStorage.getItem("productComments")) || [];
-  let allComments = productComments.concat(localComments);
+  let allComments = localComments.concat(productComments);
 
-  if (productComments.length === 0) {
+  if (allComments.length === 0) {
     commentsContainer.innerHTML += `
       <p class="m-1 text-secondary">No existen calificaciones para el producto seleccionado.</p>
     `;
@@ -157,7 +161,7 @@ function showFirstProductComments(productComments) {
             <div class="card-body">
               <p>${drawStars(comment.score)}</p>
               <h6 class="card-title title-bold">${comment.user}</h6>
-              <p class="text-secondary">${comment.dateTime}</p>
+              <p class="text-secondary">${new Date(comment.dateTime).toLocaleString()}</p>
               <p class="card-text">${comment.description}</p>
             </div>
           </div>
@@ -166,7 +170,9 @@ function showFirstProductComments(productComments) {
   }
 
   let allCommentContainer = document.getElementById("all-comments-button");
-  if (productComments.length > 3) {
+  allCommentContainer.innerHTML = "";
+
+  if (allComments.length > 3) {
     updateCommentsModal(allComments);
 
     let button = document.createElement("button");
@@ -182,13 +188,14 @@ function showFirstProductComments(productComments) {
 // Funcion para actualizar el modal con todos los comentarios
 function updateCommentsModal(productComments) {
   let modalContent = document.getElementById("all-comments-modal");
+  modalContent.innerHTML = "";
   for (comment of productComments) {
     modalContent.innerHTML += `
         <div class="card mb-2">
             <div class="card-body">
             <p>${drawStars(comment.score)}</p>
-            <h5 class="card-title">${comment.user}</h5>
-            <p class="text-secondary">${comment.dateTime}</p>
+            <h5 class="card-title title-bold">${comment.user}</h5>
+            <p class="text-secondary">${new Date(comment.dateTime).toLocaleString()}</p>
             <p class="card-text">${comment.description}</p>
           </div>
         </div>
@@ -227,18 +234,16 @@ document.getElementById("submit-rating").addEventListener("click", () => {
   const rating = currentRating;
   const date = new Date().toLocaleString();
   const userName = getCookie('sessionUser');
-    
-  if (comment && rating){ 
 
-//obtiene calificaciones guardadas en localStorage
+  if (comment && rating) {
+    //obtiene calificaciones guardadas en localStorage
     let localComments = JSON.parse(localStorage.getItem(`productComments_${productID}`)) || [];
-    
 
     //crea nueva calificacion
     let newComment = {
-      user: userName, 
+      user: userName,
       description: comment,
-      score: rating, 
+      score: rating,
       dateTime: date
     };
 
@@ -246,13 +251,12 @@ document.getElementById("submit-rating").addEventListener("click", () => {
     localComments.push(newComment);
 
     //guarda las calif actualizadas en localStorage
-    localStorage.setItem("productComments", JSON.stringify(localComments));
+    localStorage.setItem(`productComments_${productID}`, JSON.stringify(localComments));
 
-  
-  textarea.value = "";
-  stars.forEach((s) => s.classList.remove("selected"));
-  currentRating = 0;
+    textarea.value = "";
+    stars.forEach((s) => s.classList.remove("selected"));
+    currentRating = 0;
 
-  showFirstProductComments(localComments);
-}
+    showFirstProductComments(localComments, productComments);
+  }
 });
