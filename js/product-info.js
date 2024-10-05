@@ -60,9 +60,9 @@ function showRelatedProducts(productInfo) {
     relatedImages += `
       <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
         <div class="card-related">
-          <div class="card-body text-center">
+          <div class="card-body card-body-related text-center text-related">
             <img src="${productInfo.relatedProducts[i].image}" class="card-img-top-related" alt="${productInfo.relatedProducts[i].name}">
-            <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
+            <h5 class="card-title card-title-related">${productInfo.relatedProducts[i].name}</h5>
             <a class="btn btn-primary btn-sm btn-related" id="${productInfo.relatedProducts[i].id}">Más información</a>
           </div>
         </div>
@@ -70,7 +70,7 @@ function showRelatedProducts(productInfo) {
   }
 
   const relatedProductsHTML = `
-    <h2 class="text-center">Productos Relacionados</h2>
+    <h2 class="text-center text-related">Productos Relacionados</h2>
     <div class="row justify-content-center">
       ${relatedImages}
     </div>`;
@@ -156,7 +156,7 @@ function showFirstProductComments(productComments) {
           <div class="card h-100">
             <div class="card-body">
               <p>${drawStars(comment.score)}</p>
-              <h6 class="card-title">${comment.user}</h6>
+              <h6 class="card-title title-bold">${comment.user}</h6>
               <p class="text-secondary">${comment.dateTime}</p>
               <p class="card-text">${comment.description}</p>
             </div>

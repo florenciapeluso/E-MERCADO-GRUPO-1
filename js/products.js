@@ -140,7 +140,7 @@ function showProductData(productArray) {
                 <div class="card mb-3">
                     <img src="${item.image}" class="card-img-top" alt="${item.name}" id="productImage">
                     <div class="card-body">
-                        <h5 class="card-title product-name" id="productName">${item.name}</h5>
+                        <h5 class="card-title product-name mb-1" id="productName">${item.name}</h5>
                         <p class="card-text product-description">` + limitarCaracteres(item.description) + `</p>
                         <div class="row">
                             <div class="col-6 product-price">
@@ -192,21 +192,6 @@ function getProductID(productArray) {
 
   }
 }
-
-/* 
-  for (item of productArray){
-    document.getElementById("productName").addEventListener("click", function() {
-      localStorage.setItem("productID", item.id);
-      window.location = "product-info.html";
-})};
-  for (item of productArray){
-    document.getElementById("productImage").addEventListener("click", function() {
-      localStorage.setItem("productID", item.id);
-      window.location = "product-info.html";
-});
-
-}}
-*/
 
 // Fetch and show product data
 getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {

@@ -302,17 +302,6 @@ a.custom-card:hover {
   font-weight: bold;
 }
 
-.card-img-top {
-  width: 100%; /* Asegura que la imagen ocupe todo el ancho */
-  height: auto; /* Mantiene la proporción */
-  margin: 0 auto; /* Centra la imagen horizontalmente */
-}
-
-.card-title {
-  text-align: center;
-  font-weight: bold;
-}
-
 .btn-related {
   text-align: center;
   color: white;
@@ -327,14 +316,8 @@ a.custom-card:hover {
   border-color: rgb(255, 196, 0); 
 }
 
-.card-body {
+.card-body-related {
   align-content: center;
-}
-
-.card {
-  width: 90%; /* Ajusta el ancho de las tarjetas */
-  margin: 0 auto; /* Centra las tarjetas */
-
 }
 
 .card-img-top-related {
@@ -344,14 +327,10 @@ a.custom-card:hover {
   border-radius: 30px;
 }
 
-.card-title {
+.card-title-related {
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
-}
-
-.card-body {
-  padding: 10px; /* Ajusta el padding si es necesario */
 }
 
 .btn-related {
@@ -376,8 +355,12 @@ a.custom-card:hover {
   flex: 1 0 45%; /* Ajusta el ancho de las tarjetas en pantallas grandes */
 }
 
-.text-center {
+.text-related {
   font-family: Raleway;
   font-weight: bold;
   margin-top: 20px;
+}
+
+.title-bold {
+  font-weight: bold;
 }
