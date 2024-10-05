@@ -52,23 +52,32 @@ function showProductInfo(productInfo) {
       </div>`;
 }
 
+// FUNCIÓN PRODUCTOS RELACIONADOS
 function showRelatedProducts(productInfo) {
   let relatedImages = "";
 
-  for (i = 0; i < productInfo.relatedProducts.length; i++) {
-    relatedImages += `<div class="card-related">
-          <div class="card-body">
-            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top">
+  for (let i = 0; i < productInfo.relatedProducts.length; i++) {
+    relatedImages += `
+      <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
+        <div class="card-related">
+          <div class="card-body text-center">
+            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top" alt="${productInfo.relatedProducts[i].name}">
             <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
-            <a class="btn btn-primary btn-related" id=${productInfo.relatedProducts[i].id}>Más información</a>
+            <a class="btn btn-primary btn-sm btn-related" id="${productInfo.relatedProducts[i].id}">Más información</a>
           </div>
-        </div>`;
+        </div>
+      </div>`;
   }
-  relatedProductsContainer.innerHTML += `<h2>Productos Relacionados</h2>
-  <div class="row">
-  <div class="col-sm-6 col-lg-4">
-  ${relatedImages}`;
+
+  const relatedProductsHTML = `
+    <h2 class="text-center">Productos Relacionados</h2>
+    <div class="row justify-content-center">
+      ${relatedImages}
+    </div>`;
+
+  relatedProductsContainer.innerHTML += relatedProductsHTML;
 }
+
 
 function goToRelated(productInfo) {
   let btns = document.getElementsByClassName("btn-related");
