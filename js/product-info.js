@@ -61,7 +61,7 @@ function showRelatedProducts(productInfo) {
       <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center">
         <div class="card-related">
           <div class="card-body text-center">
-            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top" alt="${productInfo.relatedProducts[i].name}">
+            <img src="${productInfo.relatedProducts[i].image}" class="card-img-top-related" alt="${productInfo.relatedProducts[i].name}">
             <h5 class="card-title">${productInfo.relatedProducts[i].name}</h5>
             <a class="btn btn-primary btn-sm btn-related" id="${productInfo.relatedProducts[i].id}">Más información</a>
           </div>
