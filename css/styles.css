@@ -2,7 +2,7 @@
 .card-body,
 .container,
 .site-header {
-  font-family: "Verdana", serif !important;
+  font-family: "Raleway", serif !important;
 }
 
 .jumbotron .display-4 {
@@ -293,4 +293,91 @@ a.custom-card:hover {
 
 .star.selected {
   color: gold;
+}
+
+/* PRODUCTOS RELACIONADOS */
+.productosrel {
+  font-family: Raleway;
+  text-align: center;
+  font-weight: bold;
+}
+
+.card-img-top {
+  width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+  height: auto; /* Mantiene la proporción */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-related {
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 100px;
+  border-color: black;
+}
+
+.btn-related:hover {
+  background-color: rgb(255, 196, 0); 
+  color: black;
+  border-color: rgb(255, 196, 0); 
+}
+
+.card-body {
+  align-content: center;
+}
+
+.card {
+  width: 90%; /* Ajusta el ancho de las tarjetas */
+  margin: 0 auto; /* Centra las tarjetas */
+
+}
+
+.card-img-top {
+  max-width: 70%; /* Asegura que la imagen sea más pequeña */
+  height: auto; /* Mantiene la proporción */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  border-radius: 30px;
+}
+
+.card-title {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.card-body {
+  padding: 10px; /* Ajusta el padding si es necesario */
+}
+
+.btn-related {
+  text-align: center;
+  color: white;
+  background-color: black;
+  border-radius: 100px;
+  border-color: black;
+  padding: 5px 15px; /* Ajusta el padding del botón */
+}
+
+@media (max-width: 576px) {
+  .carousel-item .col-12 {
+    flex: 0 0 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+    max-width: 100%; /* Asegura que no se recorten */
+  }
+}
+
+/* Controlar layout en pantallas grandes para 2 productos por fila */
+.carousel-item .col-md-6,
+.carousel-item .col-lg-6 {
+  flex: 1 0 45%; /* Ajusta el ancho de las tarjetas en pantallas grandes */
+}
+
+.text-center {
+  font-family: Raleway;
+  font-weight: bold;
+  margin-top: 20px;
 }
