@@ -337,7 +337,7 @@ a.custom-card:hover {
 
 }
 
-.card-img-top {
+.card-img-top-related {
   max-width: 70%; /* Asegura que la imagen sea más pequeña */
   height: auto; /* Mantiene la proporción */
   margin: 0 auto; /* Centra la imagen horizontalmente */
