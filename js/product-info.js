@@ -127,6 +127,9 @@ getJSONData(PRODUCT_COMMENTS_URL).then(function (resultObj) {
 function showFirstProductComments(productComments) {
   let commentsContainer = document.getElementById("product-comments-container");
 
+  let localComments = JSON.parse(localStorage.getItem("productComments")) || [];
+  let allComments = productComments.concat(localComments);
+
   if (productComments.length === 0) {
     commentsContainer.innerHTML += `
       <p class="m-1 text-secondary">No existen calificaciones para el producto seleccionado.</p>
@@ -134,7 +137,10 @@ function showFirstProductComments(productComments) {
     return;
   }
 
-  let shortCommentsList = productComments.slice(0, 3);
+  //organizar comentarios por fecha
+  allComments.sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime));
+
+  let shortCommentsList = allComments.slice(0, 3);
   for (comment of shortCommentsList) {
     commentsContainer.innerHTML += `
         <div class="col mb-2">
@@ -152,7 +158,7 @@ function showFirstProductComments(productComments) {
 
   let allCommentContainer = document.getElementById("all-comments-button");
   if (productComments.length > 3) {
-    updateCommentsModal(productComments);
+    updateCommentsModal(allComments);
 
     let button = document.createElement("button");
     button.type = "button";
@@ -206,8 +212,38 @@ stars.forEach((star) => {
   });
 });
 
+
 document.getElementById("submit-rating").addEventListener("click", () => {
+  const comment = textarea.value;
+  const rating = currentRating;
+  const date = new Date().toLocaleString();
+  const userName = getCookie('sessionUser');
+    
+  if (comment && rating){ 
+
+//obtiene calificaciones guardadas en localStorage
+    let localComments = JSON.parse(localStorage.getItem(`productComments_${productID}`)) || [];
+    
+
+    //crea nueva calificacion
+    let newComment = {
+      user: userName, 
+      description: comment,
+      score: rating, 
+      dateTime: date
+    };
+
+    //agrega nueva calificacion al array de calif guardadas
+    localComments.push(newComment);
+
+    //guarda las calif actualizadas en localStorage
+    localStorage.setItem("productComments", JSON.stringify(localComments));
+
+  
   textarea.value = "";
   stars.forEach((s) => s.classList.remove("selected"));
   currentRating = 0;
+
+  showFirstProductComments(localComments);
+}
 });
