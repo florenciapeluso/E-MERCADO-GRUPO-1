@@ -228,11 +228,10 @@ stars.forEach((star) => {
   });
 });
 
-
 document.getElementById("submit-rating").addEventListener("click", () => {
   const comment = textarea.value;
   const rating = currentRating;
-  const date = new Date().toLocaleString();
+  const date = new Date().toUTCString();
   const userName = getCookie('sessionUser');
 
   if (comment && rating) {
