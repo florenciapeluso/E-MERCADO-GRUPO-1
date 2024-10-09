@@ -41,8 +41,10 @@
       <div class="row">
         <div class="col-12 col-lg-4 text-center">
           <div class="row justify-content-center">
-            <div class="col-6 col-lg-12 col-xl-12 img-container mt-3">
-              <img class="rounded-circle w-75" src="img\profile_icon.svg" alt="Imagen de perfil">
+            <div class="col-6 col-lg-12 col-xl-12 mt-3">
+              <div id="circle-img-container" class="circle-img-container mx-auto w-75">
+              <img src="img\profile_icon.svg" alt="Imagen de perfil">
+              </div>
             </div>
             <div class="col-12 text-center mt-4">
               <button id="btn-img-profile" class="btn btn-dark btn-sm btn-img-profile" type="button">Cambiar foto de
@@ -105,7 +107,7 @@
             <div class="col-12 col-md-6">
               <label for="validationCustom05" class="form-label title-bold">E-mail*</label>
               <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom05"
-                readonly>
+                readonly required>
             </div>
             <div class="col-12 col-md-6">
               <label for="validationCustom06" class="form-label title-bold">Teléfono de contacto</label>
@@ -113,7 +115,7 @@
                 placeholder="099123456">
             </div>
             <div class="col-12 text-center mt-5">
-              <button id="btn-save-profile" class="btn btn-warning title-bold px-3 py-1" type="submit">Guardar
+              <button id="btn-save-profile" class="btn btn-warning title-bold px-4 py-2" type="submit">Guardar
                 cambios</button>
             </div>
         </div>

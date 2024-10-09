@@ -302,14 +302,6 @@ a.custom-card:hover {
   font-weight: bold;
 }
 
-.btn-related {
-  text-align: center;
-  color: white;
-  background-color: black;
-  border-radius: 100px;
-  border-color: black;
-}
-
 .btn-related:hover {
   background-color: rgb(255, 196, 0); 
   color: black;
@@ -363,4 +355,17 @@ a.custom-card:hover {
 
 .title-bold {
   font-weight: bold;
+}
+
+/* Estilos my profile */
+.circle-img-container {
+  aspect-ratio: 1 / 1; /* Mantiene la proporcion entre el ancho y el alto*/
+  border-radius: 50%; /* Redondea el contenedor para que la imagen se vea circular */
+  overflow: hidden;
+}
+
+.circle-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

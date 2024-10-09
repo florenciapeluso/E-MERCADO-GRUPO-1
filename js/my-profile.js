@@ -1,19 +1,27 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
+// Funcion para mostrar el mail con el que ingreso el usuario en el campo E-mail
+showEmailValue()
+
+function showEmailValue() {
+  let emailInput = document.getElementById("validationCustom05");
+  let emailValue = getCookie("sessionUser");
+  emailInput.value = emailValue;
+}
+
+
+// Validacion del formulario al enviar
 (() => {
-    'use strict'
-  
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    const forms = document.querySelectorAll('.needs-validation')
-  
-    // Loop over them and prevent submission
-    Array.from(forms).forEach(form => {
-      form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-        }
-  
-        form.classList.add('was-validated')
-      }, false)
-    })
-  })()
+  'use strict'
+
+  const forms = document.querySelectorAll('.needs-validation')
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
