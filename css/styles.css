@@ -333,7 +333,7 @@ a.custom-card:hover {
   margin-top: 10px;
 }
 
-.btn-related {
+.btn-related, .btn-img-profile, .btn-toggle {
   text-align: center;
   color: white;
   background-color: black;

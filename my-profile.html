@@ -8,22 +8,6 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
   <script src="js/session-manager.js"></script>
 </head>
 
@@ -53,10 +37,75 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-lg-4 text-center">
+          <div class="img-container mt-3">
+            <img class="img-fluid rounded-circle" src="img\profile_icon.svg" alt="Imagen de perfil">
+          </div>
+          <div class="col-12 text-center mt-4">
+            <button class="btn btn-dark btn-sm btn-img-profile" type="button">Cambiar foto de perfil</button>
+          </div>
+          <div class="toogle-container mt-4">
+            <p class="text-muted">Modo de visualización</p>
+            <div class="row justify-content-center">
+              <div class="col-5 col-sm-4 col-md-3 col-lg-6 col-xl-5 text-end">
+                <button class="btn btn-dark btn-sm btn-toggle w-100" type="button">Claro</button>
+              </div>
+              <div class="col-5 col-sm-4 col-md-3 col-lg-6 col-xl-5 text-start">
+                <button class="btn btn-dark btn-sm btn-toggle w-100" type="button">Oscuro</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-lg-8">
+          <h1 class="title-bold mt-4 mb-4">Mi perfil</h1>
+          <form class="row gx-5 gy-4 needs-validation" novalidate>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom01" class="form-label title-bold">Nombre*</label>
+              <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom01"
+                placeholder="John" required>
+              <div class="invalid-feedback">
+                El nombre es requerido.
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom02" class="form-label title-bold">Segundo nombre</label>
+              <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom02"
+                placeholder="Johnny">
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom03" class="form-label title-bold">Apellido*</label>
+              <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom03"
+                placeholder="Doe" required>
+              <div class="invalid-feedback">
+                El apellido es requerido.
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom04" class="form-label title-bold">Segundo apellido</label>
+              <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom04"
+                placeholder="Doeny">
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom05" class="form-label title-bold">E-mail*</label>
+              <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom05"
+                readonly>
+            </div>
+            <div class="col-12 col-md-6">
+              <label for="validationCustom06" class="form-label title-bold">Teléfono de contacto</label>
+              <input type="tel" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="validationCustom06"
+                placeholder="095789456">
+            </div>
+            <div class="col-12 text-center mt-4">
+              <button class="btn btn-warning" type="submit">Guardar cambios</button>
+            </div>
+        </div>
       </div>
+      </form>
+    </div>
+    </div>
+
     </div>
   </main>
   <footer class="text-muted">
@@ -64,7 +113,8 @@
       <p class="float-end">
         <a href="#">Volver arriba</a>
       </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a></p>
+      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+      </p>
     </div>
   </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
