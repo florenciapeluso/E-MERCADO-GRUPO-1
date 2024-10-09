@@ -34,12 +34,18 @@ function checkSession() {
 
 checkSession();
 
-document.addEventListener("DOMContentLoaded", function(){
-    // Obtener el nombre del usuario desde la cookie
-    const userName = getCookie('sessionUser');
-    
-    // Mostrar el nombre en la barra de navegación
+//Cerrar sesión 
+document.addEventListener("DOMContentLoaded", function() {
+    let userName = getCookie('sessionUser');
     if (userName) {
         document.getElementById('user-name').innerHTML = userName;
-    } })
+    }
 
+    let logoutButton = document.getElementById('logout');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', function() {
+            document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "login.html";
+        });
+    }
+});
