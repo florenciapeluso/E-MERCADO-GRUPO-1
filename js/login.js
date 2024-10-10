@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Guardar la sesión en una cookie
         document.cookie = `sessionUser=${username}; path=/;`;
 
+        addUser(getCookie('sessionUser'));
+        console.log(previousUsers);
+
 
         // Redirigir al usuario a la página de inicio (o cualquier otra)
         window.location.replace("index.html");

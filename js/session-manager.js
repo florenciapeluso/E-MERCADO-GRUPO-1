@@ -5,6 +5,7 @@ function getCookie(name) {
     if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+
 // Redireccionar al Login en caso de que no esté autenticado
 function redirectToLogin(sessionUser) {
     if (!sessionUser) {
@@ -34,6 +35,10 @@ function checkSession() {
 
 checkSession();
 
+function addUser(userName){
+    previousUsers.push(getCookie('sessionUser'));
+}
+
 //Cerrar sesión 
 document.addEventListener("DOMContentLoaded", function() {
     let userName = getCookie('sessionUser');
@@ -46,6 +51,10 @@ document.addEventListener("DOMContentLoaded", function() {
         logoutButton.addEventListener('click', function() {
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             window.location.href = "login.html";
-        });
+        
+        }
+        
+            );
     }
 });
+
