@@ -1,3 +1,7 @@
+
+
+
+
 // Obtener cookie dado el nombre
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -35,9 +39,14 @@ function checkSession() {
 
 checkSession();
 
-function addUser(userName){
-    previousUsers.push(getCookie('sessionUser'));
-}
+function buildUserData(){
+    if (userData == null){
+      userData= {firstname:'',secondname:'',lastname:'',secondlastname:'',userphone:''};
+    }
+    return (userData);
+  
+  }
+
 
 //Cerrar sesión 
 document.addEventListener("DOMContentLoaded", function() {

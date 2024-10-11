@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     const loginForm = document.querySelector("form");
     const userInput = document.getElementById("user");
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const username = userInput.value.trim();
         const password = passwordInput.value.trim();
 
+
+
         console.log("Formulario enviado.");
 
         // Validar que los campos no estén vacíos
@@ -31,8 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
         // Guardar la sesión en una cookie
         document.cookie = `sessionUser=${username}; path=/;`;
 
-        addUser(getCookie('sessionUser'));
-        console.log(previousUsers);
 
 
         // Redirigir al usuario a la página de inicio (o cualquier otra)
