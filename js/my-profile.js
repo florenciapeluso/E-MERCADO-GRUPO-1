@@ -1,46 +1,37 @@
 // const userInfoKeys= ["userFirstName", "userSecondName", "userLast", "userSecondLast", "userPhone"]
 
-let username= getCookie('sessionUser');
-let userData= JSON.parse(localStorage.getItem(username));
-let fields= ['firstname', 'secondname', 'lastname', 'secondlastname', 'userphone'];
+let username = getCookie('sessionUser');
+let userData = JSON.parse(localStorage.getItem(username));
+let fields = ['firstname', 'secondname', 'lastname', 'secondlastname', 'userphone'];
 
 buildUserData();
 showFieldValues();
 
 // Constructor del objeto a usar para guardar la información del usuario, guardar la info del usuario en una variable, pasar todo al localStorage
-function buildUserData(){
-  if (localStorage.getItem(username) == null){
-    userData= {firstname:'',secondname:'',lastname:'',secondlastname:'',userphone:''};
+function buildUserData() {
+  if (localStorage.getItem(username) == null) {
+    userData = { firstname: '', secondname: '', lastname: '', secondlastname: '', userphone: '' };
   }
-  return (userData);
-
+  return userData;
 }
 
-
-function storeUserData(){
-  let fieldValue='';
- 
+function storeUserData() {
+  let fieldValue = '';
 
   fields.forEach(field => {
-    fieldValue=document.getElementById(field).value;
+    fieldValue = document.getElementById(field).value.trim();
+    userData[field] = fieldValue;
+  })
+  return userData;
+}
 
-    userData[field]= fieldValue;
-  }
- 
-  )
-  return(userData);      
-  }
-
-
-
-function localUserData(userData){
+function localUserData(userData) {
   localStorage.setItem(getCookie('sessionUser'), JSON.stringify(userData));
 }
 
 
 // Funcion para mostrar el mail con el que ingreso el usuario en el campo E-mail
 showEmailValue();
-
 
 function showEmailValue() {
   let emailInput = document.getElementById("email");
@@ -52,14 +43,11 @@ function showEmailValue() {
 
 function showFieldValues() {
   fields.forEach(field => {
-    let fieldInput= document.getElementById(field)
-    let fieldValue= userData[field];
-    fieldInput.value= fieldValue;
-
+    let fieldInput = document.getElementById(field)
+    let fieldValue = userData[field];
+    fieldInput.value = fieldValue;
   })
-
 }
-
 
 
 // Validacion del formulario al enviar
@@ -71,21 +59,24 @@ function showFieldValues() {
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
       if (!form.checkValidity()) {
-        event.preventDefault()
         event.stopPropagation()
-      } 
-      else{
-        userData= storeUserData();
+      } else {
+        userData = storeUserData();
         localUserData(userData)
-
-
-       
+        showFieldValues();
+        delayRemoveValidation();
       }
+      event.preventDefault()
       form.classList.add('was-validated')
     }, false)
   })
 })()
 
-console.log(localStorage)
-
-console.log(userData)
+function delayRemoveValidation() {
+  setTimeout(() => {
+    const forms = document.querySelectorAll('.was-validated')
+    Array.from(forms).forEach(form => {
+      form.classList.remove('was-validated')
+    })
+  }, 3000);
+}
