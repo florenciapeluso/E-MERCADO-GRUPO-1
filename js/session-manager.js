@@ -57,13 +57,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let logoutButton = document.getElementById('logout');
     if (logoutButton) {
-        logoutButton.addEventListener('click', function() {
+        logoutButton.addEventListener('click', function(event) {
+            event.preventDefault();
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            window.location.replace = ("login.html");
-        
-        }
-        
-            );
+
+            window.history.pushState(null, null, window.location.href);
+            window.addEventListener('popstate', function() {
+                window.history.pushState(null, null, window.location.href);
+            });
+            
+            window.location.replace("login.html");
+        });
     }
 });
 
