@@ -61,13 +61,13 @@ document.addEventListener("DOMContentLoaded", function() {
             event.preventDefault();
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-            window.history.pushState(null, null, window.location.href);
-            window.addEventListener('popstate', function() {
-                window.history.pushState(null, null, window.location.href);
-            });
-            
+            window.history.replaceState(null, null, "login.html");
             window.location.replace("login.html");
         });
     }
-});
 
+    window.addEventListener('popstate', function() {
+
+        window.location.replace("login.html");
+    });
+});
