@@ -1,7 +1,4 @@
 
-
-
-
 // Obtener cookie dado el nombre
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -41,11 +38,10 @@ checkSession();
 
 function buildUserData(){
     if (userData == null){
-      userData= {firstname:'',secondname:'',lastname:'',secondlastname:'',userphone:''};
+        userData = { firstname: '' , secondname: '' , lastname: '' , secondlastname: '' ,userphone: '' };
     }
     return (userData);
-  
-  }
+}
 
 
 //Cerrar sesión 
@@ -60,14 +56,15 @@ document.addEventListener("DOMContentLoaded", function() {
         logoutButton.addEventListener('click', function(event) {
             event.preventDefault();
             document.cookie = "sessionUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-            window.history.replaceState(null, null, "login.html");
             window.location.replace("login.html");
         });
     }
 
+    window.history.pushState(null, null, window.location.href);
     window.addEventListener('popstate', function() {
-
-        window.location.replace("login.html");
+        window.history.pushState(null, null, window.location.href);
     });
 });
+
+
+
