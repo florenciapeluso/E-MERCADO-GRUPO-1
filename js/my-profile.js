@@ -133,3 +133,59 @@ document.getElementById('theme-toggle').addEventListener('change', function () {
     enableDayMode();
   }
 });
+
+
+// CAMBIAR FOTO DE PERFIL
+
+const btnImgProfile = document.getElementById('btn-img-profile');
+const profilePic = document.getElementById('profile-pic');
+
+// Cargar la imagen de perfil desde localStorage al cargar la página
+window.onload = function() {
+  const user = getCookie('sessionUser'); 
+  const storedImage = localStorage.getItem(`profilePic_${user}`); 
+
+  // Comprobar si la cookie existe y si hay una imagen almacenada
+  if (user) {
+      if (storedImage) {
+          profilePic.src = storedImage; 
+          profilePic.style.display = 'block'; 
+      } else {
+          profilePic.src = 'img/profile_icon.svg'; 
+          profilePic.style.display = 'block'; 
+      }
+  } else {
+      localStorage.removeItem(`profilePic_${user}`);
+      profilePic.src = 'img/profile_icon.svg'; 
+      profilePic.style.display = 'block'; 
+  }
+};
+
+// Escuchar el evento de clic para cambiar la foto de perfil
+btnImgProfile.addEventListener('click', function() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+
+  input.onchange = function(event) {
+      const file = event.target.files[0];
+      const maxSizeInMB = 2; // Tamaño máximo en MB
+      const maxSizeInBytes = maxSizeInMB * 1024 * 1024; 
+
+      if (file.size > maxSizeInBytes) {
+          alert(`El tamaño máximo permitido es ${maxSizeInMB} MB.`);
+          return; // alerta si pesa mas de 2mb
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const user = getCookie('sessionUser'); 
+          localStorage.setItem(`profilePic_${user}`, e.target.result); 
+          profilePic.src = e.target.result; 
+          profilePic.style.display = 'block'; 
+      };
+      reader.readAsDataURL(file); // Leer la imagen como Data URL para almacenar en local
+  };
+
+  input.click(); 
+});
