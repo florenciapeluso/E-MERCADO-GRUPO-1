@@ -369,3 +369,100 @@ a.custom-card:hover {
   height: 100%;
   object-fit: cover;
 }
+
+/* estilos modo claro/oscuro*/
+
+body.day-mode{
+  background-color: white;
+  color: black;
+}
+
+body.night-mode, .main.night-mode{
+  background-color: #1e1e1e !important;
+  color: #868484;
+}
+
+.card-body.day-mode{
+  background-color: white;
+  color: black;
+}
+
+.card-body.night-mode{
+  background-color: #1e1e1e;
+color: #464646;
+}
+
+.navbar.night-mode {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
+  background-color: #464646 !important;
+}
+
+.navbar.day-mode {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
+  background-color: #000000 !important;
+}
+
+.circle-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex; 
+  width: 60px;
+  height: 30px;
+  align-items: center; 
+  justify-content: center; 
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: -10px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 15px;
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  align-items: center;
+}
+.slider svg {
+  transition: opacity 0.3s;
+}
+
+.icon-sun {
+  opacity: 1;
+}
+
+.icon-moon {
+  opacity: 0;
+}
+
+input:checked + .slider {
+  background-color: black;
+}
+
+input:checked + .slider .icon-sun {
+  opacity: 0;
+}
+
+input:checked + .slider .icon-moon {
+  opacity: 1;
+  color: white;
+}
