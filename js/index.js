@@ -23,7 +23,7 @@ function enableDayMode() {
   localStorage.setItem(`${user}-theme`, 'day');
   document.getElementById('theme-toggle').checked = false;
 
-  const elements = document.querySelectorAll(' .card-body, .navbar');
+  const elements = document.querySelectorAll('.card-body, .navbar');
   elements.forEach(el => {
     el.classList.add('day-mode');
     el.classList.remove('night-mode');

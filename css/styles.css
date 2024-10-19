@@ -372,24 +372,14 @@ a.custom-card:hover {
 
 /* estilos modo claro/oscuro*/
 
-body.day-mode{
+body.day-mode, .card-body.day-mode{
   background-color: white;
   color: black;
 }
 
-body.night-mode, .main.night-mode{
-  background-color: #1e1e1e !important;
-  color: #868484;
-}
-
-.card-body.day-mode{
-  background-color: white;
-  color: black;
-}
-
-.card-body.night-mode{
+body.night-mode, .card-body{
   background-color: #1e1e1e;
-color: #464646;
+  color: #868484;
 }
 
 .navbar.night-mode {
