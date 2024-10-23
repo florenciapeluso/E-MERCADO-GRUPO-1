@@ -107,6 +107,53 @@ function showCategory(categoryName) {
     </div>`;
 }
 
+//Funciones relacionadas a carrito
+
+// Estructura de lo que se va a guardar en localStorage:
+
+// key: xoxo@mail.com
+// value: userdata
+
+//Estructura userdata:
+
+/* userdata= {
+                firstname: str, 
+                secondname:str, 
+                lastname:str, 
+                secondlastname:str, 
+                email:str, 
+                userphone:int, 
+                cart: object}
+
+Estructura cart:
+
+cart {
+      items: arr,
+      subtotal: int
+      }
+
+items [
+      {productid: int,
+       amount: int,} , 
+        ...
+        ]
+
+
+Estructura product:
+
+product {
+          id:int,
+          name: str,
+          description: str,
+          cost: int,
+          images: arr,
+          relatedProducts: object}
+
+*/
+
+
+
+
 // Fetch and show product info
 function showData() {
   getJSONData(
@@ -122,7 +169,15 @@ function showData() {
   });
 }
 
+
+
+
+
 showData();
+
+
+
+
 
 // URL de comentarios para cada producto
 const PRODUCT_COMMENTS_URL = PRODUCT_INFO_COMMENTS_URL + productID + EXT_TYPE;
