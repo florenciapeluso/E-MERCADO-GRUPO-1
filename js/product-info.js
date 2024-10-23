@@ -123,20 +123,17 @@ function showCategory(categoryName) {
                 secondlastname:str, 
                 email:str, 
                 userphone:int, 
-                cart: object}
+                cart: arr
+                }
 
 Estructura cart:
 
-cart {
-      items: arr,
+cart [{
+      id: int,
+      amount: int,
       subtotal: int
       }
-
-items [
-      {productid: int,
-       amount: int,} , 
-        ...
-        ]
+      {...}]
 
 
 Estructura product:
