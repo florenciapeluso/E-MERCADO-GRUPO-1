@@ -6,11 +6,23 @@ const pageNameContainer = document.getElementById("page-name-container");
 
 const productInfoContainer = document.getElementById("product-info-container");
 
+const carouselProductInfoContainer = document.getElementById('carousel-product-info-container');
+
+const productInfoColumn = document.getElementById('product-info-column');
+
+const productInfoRow = document.getElementById('product-info-row');
+
 const relatedProductsContainer = document.getElementById("related-products");
 
 const stars = document.querySelectorAll(".star");
 
 const textarea = document.getElementById("floatingTextarea");
+
+const btnAddToCart = document.getElementById('btn-add-to-cart');
+
+let cartKey = 'cart_' + getCookie();
+
+
 
 function showProductInfo(productInfo) {
   let carouselString = "";
@@ -27,32 +39,28 @@ function showProductInfo(productInfo) {
     }
   }
 
-  productInfoContainer.innerHTML += `<div class="row">
-      <div id="carouselControls" class="carousel slide col-lg-6 col-md-12" data-bs-ride="carousel">
-      <div class="carousel-inner">
-      ${carouselString}
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-      </button>
-      </div>
+    carouselProductInfoContainer.innerHTML += 
+    `<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+    ${carouselString}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>`
 
-      <div class="col-lg-6 col-sm-12">
-      <h5 class="card-title product-name">${productInfo.name}</h5>
-      <p class="product-soldCount" style="width: 108.1875px;">${productInfo.soldCount} vendidos</p>
-      <p class="card-text product-description">${productInfo.description}</p>
-      <p class="product-price" >${productInfo.cost} ${productInfo.currency}</p>
-      <button class="btn btn-dark" style="width: 226px; height: 40px;">Agregar al carrito</button>
+    productInfoRow.innerHTML +=  `<h5 class="card-title product-name">${productInfo.name}</h5>
+    <p class="product-soldCount" style="width: 108.1875px;">${productInfo.soldCount} vendidos</p>
+    <p class="card-text product-description">${productInfo.description}</p>
+    <p class="product-price" >${productInfo.cost} ${productInfo.currency}</p>
+    `
 
-      </div>
-
-      </div>`;
-}
+      }
 
 // FUNCIÓN PRODUCTOS RELACIONADOS
 function showRelatedProducts(productInfo) {
@@ -107,24 +115,44 @@ function showCategory(categoryName) {
     </div>`;
 }
 
-//Funciones relacionadas a carrito
+//FUNCIONES RELACIONADAS A CARRITO
+
+//Se fija si hay items en el carrito. Si no hay, crea un carrito nuevo para el usuario (los 0 son placeholders)
+function checkCart(){
+  if(localStorage.getItem(cartKey) === null){
+    let cart=[{itemid:0 , amount:0 , subtotal:0}];
+    localStorage.setItem(cartKey, cart);
+    return cart
+  }
+  }
+
+
+//Construye un objeto con la información necesaria para cada item
+
+function itemObjectConstructor(itemid, itemamount, itemprice, sub){
+  return (item= {id:itemid , amount:itemamount, itemprice: price, subtotal:sub})
+}
+
+//Agrega el producto en el cual se hizo click en 'agregar al carrito' al carrito. 
+//Además, le pregunta al usuario si quiere redirigir al carrito o seguir comprando
+
+
+function addToCart(){
+  let productAdd = localStorage.setItem(cartKey, JSON.parse(cart));
+  let redirectToCart= false;
+  // agregar en el innerHTML: quiere redirigir al carrito o continuar comprando? y botones de si o no
+  if (redirectToCart === true){
+    window.location= 'cart.html';
+  }
+  }
+
 
 // Estructura de lo que se va a guardar en localStorage:
 
-// key: xoxo@mail.com
-// value: userdata
+// key: cart_xoxo@mail.com
+// value: cart
 
-//Estructura userdata:
-
-/* userdata= {
-                firstname: str, 
-                secondname:str, 
-                lastname:str, 
-                secondlastname:str, 
-                email:str, 
-                userphone:int, 
-                cart: arr
-                }
+/*
 
 Estructura cart:
 
@@ -148,7 +176,7 @@ product {
 
 */
 
-
+btnAddToCart.addEventListener('click',addToCart);
 
 
 // Fetch and show product info
@@ -165,9 +193,6 @@ function showData() {
     }
   });
 }
-
-
-
 
 
 showData();
