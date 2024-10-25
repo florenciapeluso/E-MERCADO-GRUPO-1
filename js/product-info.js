@@ -2,6 +2,8 @@ let productID = localStorage.getItem(`productID`);
 
 let productComments = [];
 
+let productInfo = {};
+
 const pageNameContainer = document.getElementById("page-name-container");
 
 const productInfoContainer = document.getElementById("product-info-container");
@@ -37,7 +39,7 @@ function showProductInfo(productInfo) {
     }
   }
 
-    carouselProductInfoContainer.innerHTML += 
+  carouselProductInfoContainer.innerHTML +=
     `<div id="carouselControls" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
     ${carouselString}
@@ -52,13 +54,13 @@ function showProductInfo(productInfo) {
     </button>
     </div>`
 
-    productInfoRow.innerHTML +=  `<h5 class="card-title product-name">${productInfo.name}</h5>
+  productInfoRow.innerHTML += `<h5 class="card-title product-name">${productInfo.name}</h5>
     <p class="product-soldCount" style="width: 108.1875px;">${productInfo.soldCount} vendidos</p>
     <p class="card-text product-description">${productInfo.description}</p>
     <p class="product-price" >${productInfo.cost} ${productInfo.currency}</p>
     `
 
-      }
+}
 
 // FUNCIÓN PRODUCTOS RELACIONADOS
 function showRelatedProducts(productInfo) {
@@ -93,7 +95,6 @@ function goToRelated(productInfo) {
 
   for (let i = 0; i < relatedProductsInfo.length; i++) {
     btns[i].addEventListener("click", function () {
-      console.log(relatedProductsInfo[i]);
       localStorage.setItem("productID", relatedProductsInfo[i].id);
 
       window.location = "product-info.html";
@@ -118,84 +119,35 @@ function showCategory(categoryName) {
 
 //Construye un objeto con la información necesaria para cada item
 
-function itemObjectConstructor(itemid, itemname, itemimg, itemcurr,  itemamount, itemprice, sub){
-  return (item= {id:itemid , name:itemname, img:itemimg, currency:itemcurr, amount:itemamount, price:itemprice, subtotal:sub})
+function itemObjectConstructor(itemid, itemname, itemimg, itemcurr, itemamount, itemprice) {
+  return (item = { id: itemid, name: itemname, img: itemimg, currency: itemcurr, amount: itemamount, price: itemprice})
 }
 
 //Agrega el producto en el cual se hizo click en 'agregar al carrito' al carrito. 
 
 
 function addToCart(){
-  getJSONData(`https://japceibal.github.io/emercado-api/products/${productID}.json`).then(function (resultObj) {
-  if (resultObj.status === "ok") {
-    productInfo = resultObj.data;}})
-  let cart=JSON.parse(localStorage.getItem(cartKey));
-  let item= itemObjectConstructor(productID, productInfo.name, productInfo.images[0], productInfo.currency, 1, productInfo.cost , determineSubtotal() );
-  if (cart===null){
-    cart=[];
+  let cart = JSON.parse(localStorage.getItem(cartKey));
+  let item = itemObjectConstructor(productID, productInfo.name, productInfo.images[0], productInfo.currency, 1, productInfo.cost);
+  if (cart === null) {
+    cart = [];
   }
   let productIndex = isInCart(cart, item.id);
-  if (productIndex > -1){
-    cart[productIndex].amount+= 1;
-  }
-  else{
+  if (productIndex > -1) {
+    cart[productIndex].amount += 1;
+  } else {
     cart[cart.length] = item;
   }
   localStorage.setItem(cartKey, JSON.stringify(cart));
 }
 
-
-
-
 //Función que determina si un producto ya está en el carrito
-
-
-function isInCart(items, id){
-  console.log(items);
-  index= items.findIndex(item => item.id === id);  
+function isInCart(items, id) {
+  index = items.findIndex(item => item.id === id);
   return index
 }
 
-function determineSubtotal(){
-  return 'subtotal placeholder';
-}
-
-
-console.log('local:'+ JSON.stringify(localStorage));
-
-
-
-
-// Estructura de lo que se va a guardar en localStorage:
-
-// key: cart_xoxo@mail.com
-// value: cart
-
-/*
-
-Estructura cart:
-
-cart [{
-      id: int,
-      amount: int,
-      subtotal: int
-      }
-      {...}]
-
-
-Estructura product:
-
-product {
-          id:int,
-          name: str,
-          description: str,
-          cost: int,
-          images: arr,
-          relatedProducts: object}
-
-*/
-
-btnAddToCart.addEventListener('click',addToCart);
+btnAddToCart.addEventListener('click', addToCart);
 
 
 // Fetch and show product info
@@ -358,7 +310,7 @@ document.getElementById("submit-rating").addEventListener("click", () => {
 
 
 // modo noche
-const user = getCookie('sessionUser'); 
+const user = getCookie('sessionUser');
 
 function enableDayMode() {
   document.body.classList.add('day-mode');
