@@ -20,9 +20,7 @@ const textarea = document.getElementById("floatingTextarea");
 
 const btnAddToCart = document.getElementById('btn-add-to-cart');
 
-let cartKey = 'cart_' + getCookie();
-
-
+let cartKey = getCookie('sessionUser') + '-cart';
 
 function showProductInfo(productInfo) {
   let carouselString = "";
@@ -117,34 +115,55 @@ function showCategory(categoryName) {
 
 //FUNCIONES RELACIONADAS A CARRITO
 
-//Se fija si hay items en el carrito. Si no hay, crea un carrito nuevo para el usuario (los 0 son placeholders)
-function checkCart(){
-  if(localStorage.getItem(cartKey) === null){
-    let cart=[{itemid:0 , amount:0 , subtotal:0}];
-    localStorage.setItem(cartKey, cart);
-    return cart
-  }
-  }
-
 
 //Construye un objeto con la información necesaria para cada item
 
-function itemObjectConstructor(itemid, itemamount, itemprice, sub){
-  return (item= {id:itemid , amount:itemamount, itemprice: price, subtotal:sub})
+function itemObjectConstructor(itemid, itemname, itemimg, itemcurr,  itemamount, itemprice, sub){
+  return (item= {id:itemid , name:itemname, img:itemimg, currency:itemcurr, amount:itemamount, price:itemprice, subtotal:sub})
 }
 
 //Agrega el producto en el cual se hizo click en 'agregar al carrito' al carrito. 
-//Además, le pregunta al usuario si quiere redirigir al carrito o seguir comprando
 
 
 function addToCart(){
-  let productAdd = localStorage.setItem(cartKey, JSON.parse(cart));
-  let redirectToCart= false;
-  // agregar en el innerHTML: quiere redirigir al carrito o continuar comprando? y botones de si o no
-  if (redirectToCart === true){
-    window.location= 'cart.html';
+  getJSONData(`https://japceibal.github.io/emercado-api/products/${productID}.json`).then(function (resultObj) {
+  if (resultObj.status === "ok") {
+    productInfo = resultObj.data;}})
+  let cart=JSON.parse(localStorage.getItem(cartKey));
+  let item= itemObjectConstructor(productID, productInfo.name, productInfo.images[0], productInfo.currency, 1, productInfo.cost , determineSubtotal() );
+  if (cart===null){
+    cart=[];
   }
+  let productIndex = isInCart(cart, item.id);
+  if (productIndex > -1){
+    cart[productIndex].amount+= 1;
   }
+  else{
+    cart[cart.length] = item;
+  }
+  localStorage.setItem(cartKey, JSON.stringify(cart));
+}
+
+
+
+
+//Función que determina si un producto ya está en el carrito
+
+
+function isInCart(items, id){
+  console.log(items);
+  index= items.findIndex(item => item.id === id);  
+  return index
+}
+
+function determineSubtotal(){
+  return 'subtotal placeholder';
+}
+
+
+console.log('local:'+ JSON.stringify(localStorage));
+
+
 
 
 // Estructura de lo que se va a guardar en localStorage:
