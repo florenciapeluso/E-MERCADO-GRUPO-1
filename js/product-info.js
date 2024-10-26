@@ -139,6 +139,7 @@ function addToCart(){
     cart[cart.length] = item;
   }
   localStorage.setItem(cartKey, JSON.stringify(cart));
+  showCartBadge();
 }
 
 //Función que determina si un producto ya está en el carrito
