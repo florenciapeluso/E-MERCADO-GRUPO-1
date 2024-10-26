@@ -461,3 +461,12 @@ input:checked + .slider .icon-moon {
   opacity: 1;
   color: white;
 }
+
+/* Estilo del toast */
+#liveToast {
+  background-color: #d4edda;
+}
+
+.btn-group > .btn-check:checked + .btn.zIndex-reset, .btn-group > .btn-check:hover + .btn.zIndex-reset {
+  z-index: unset;
+}

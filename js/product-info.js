@@ -22,8 +22,6 @@ const textarea = document.getElementById("floatingTextarea");
 
 const btnAddToCart = document.getElementById('btn-add-to-cart');
 
-let cartKey = getCookie('sessionUser') + '-cart';
-
 function showProductInfo(productInfo) {
   let carouselString = "";
 
@@ -114,41 +112,10 @@ function showCategory(categoryName) {
     </div>`;
 }
 
-//FUNCIONES RELACIONADAS A CARRITO
-
-
-//Construye un objeto con la información necesaria para cada item
-
-function itemObjectConstructor(itemid, itemname, itemimg, itemcurr, itemamount, itemprice) {
-  return (item = { id: itemid, name: itemname, img: itemimg, currency: itemcurr, amount: itemamount, price: itemprice})
-}
-
-//Agrega el producto en el cual se hizo click en 'agregar al carrito' al carrito. 
-
-
-function addToCart(){
-  let cart = JSON.parse(localStorage.getItem(cartKey));
-  let item = itemObjectConstructor(productID, productInfo.name, productInfo.images[0], productInfo.currency, 1, productInfo.cost);
-  if (cart === null) {
-    cart = [];
-  }
-  let productIndex = isInCart(cart, item.id);
-  if (productIndex > -1) {
-    cart[productIndex].amount += 1;
-  } else {
-    cart[cart.length] = item;
-  }
-  localStorage.setItem(cartKey, JSON.stringify(cart));
-  showCartBadge();
-}
-
-//Función que determina si un producto ya está en el carrito
-function isInCart(items, id) {
-  index = items.findIndex(item => item.id === id);
-  return index
-}
-
-btnAddToCart.addEventListener('click', addToCart);
+// Evento para añadir al carrito
+btnAddToCart.addEventListener('click', () => {
+  addToCart(productInfo);
+});
 
 
 // Fetch and show product info

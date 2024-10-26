@@ -151,7 +151,7 @@ function showProductData(productArray) {
                             </div>
                         </div>
                         <div class="row mx-auto">
-                            <button class="btn btn-dark">Añadir al carrito</button>
+                            <button id="btn-cart-${item.id}" class="btn btn-dark">Añadir al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -184,6 +184,7 @@ function onSearchQueryChange(query) {
 function getProductID(productArray) {
   let cards = document.getElementsByClassName("card");
   for (let i = 0; i < productArray.length; i++) {
+    setAddToCartEvent(productArray[i]);
     cards[i].addEventListener("click", function () {
       localStorage.setItem("productID", productArray[i].id);
 
@@ -192,6 +193,20 @@ function getProductID(productArray) {
 
   }
 }
+
+// Función para establecer el evento del botón de añadir al carrito
+function setAddToCartEvent(product) {
+  let cartBtn = document.getElementById(`btn-cart-${product.id}`);
+  let toastLiveExample = document.getElementById('liveToast');
+  let toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+
+  cartBtn.addEventListener("click", function (e) {
+    addToCart(product);
+    toastBootstrap.show()
+    e.stopPropagation();
+  })
+}
+
 
 // Fetch and show product data
 getJSONData(PRODUCT_DATA_URL).then(function (resultObj) {
@@ -214,7 +229,7 @@ document.getElementById("Filtrarprecio").addEventListener("click", function () {
 
 
 // modo noche
-const user = getCookie('sessionUser'); 
+const user = getCookie('sessionUser');
 
 function enableDayMode() {
   document.body.classList.add('day-mode');
