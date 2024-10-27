@@ -90,24 +90,25 @@ function cargarProductos() {
       const item = cartItems[index];
       item.amount += change;
       if (item.amount < 1) item.amount = 1;
-    
+
       // Actualizar el localStorage
       const cartKey = getCookie('sessionUser') + '-cart';
       localStorage.setItem(cartKey, JSON.stringify(cartItems));
-    
+      showCartBadge();
+
       // MOSTRAR CANTIDAD Y PRECIO EN TIEMPO REAL
       const amountElement = document.getElementById(`amount-${index}`);
       amountElement.textContent = item.amount;
-    
+
       const totalElement = document.getElementById(`total-${index}`);
       totalElement.textContent = `USD $${(item.price * item.amount).toFixed(2)}`;
-    
+
       // TOTAL DEL CARRITO
       let subtotal = 0;
       cartItems.forEach((cartItem) => {
         subtotal += cartItem.price * cartItem.amount;
       });
-    
+
       document.getElementById('order-total').textContent = `USD $${subtotal.toFixed(2)}`;
     }
 
@@ -116,12 +117,12 @@ function cargarProductos() {
     const sumarBtn = productCard.querySelector('.sumar');
 
     restarBtn.addEventListener('click', () => actualizarcantidad(index, -1, cartItems));
-   sumarBtn.addEventListener('click', () => actualizarcantidad(index, 1, cartItems));
+    sumarBtn.addEventListener('click', () => actualizarcantidad(index, 1, cartItems));
 
     container.appendChild(productCard);
 
-  // SUBTOTAL
-  subtotal += item.price * item.amount;
+    // SUBTOTAL
+    subtotal += item.price * item.amount;
   });
 
   // ACTUALIZAR TOTAL
@@ -130,4 +131,6 @@ function cargarProductos() {
 
 // Cargar productos al cargar la página
 document.addEventListener('DOMContentLoaded', cargarProductos);
+
+
 
