@@ -374,14 +374,16 @@ a.custom-card:hover {
 
 body.day-mode, 
 body.day-mode .card, 
-body.day-mode .card-body {
+body.day-mode .card-body,
+.modal-body.day-mode, .modal-header.day-mode, .modal-footer.day-mode{
     background-color: white;
     color: black;
 }
 
 body.night-mode,
 body.night-mode .card, 
-body.night-mode .card-body {
+body.night-mode .card-body, 
+.modal-body.night-mode, .modal-header.night-mode, .modal-footer.night-mode{
     background-color: #1e1e1e !important;
     color: #868484;
 }
@@ -400,6 +402,21 @@ body.night-mode .card-body {
   justify-content: space-between; 
   background-color: #000000 !important;
 }
+
+.jumbotron.night-mode {
+  height: 50vh;
+  padding: 5em inherit;
+  margin-bottom: 0;
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: black;
+  font-weight: bold;
+  filter: invert(1) brightness(2);
+}
+
 
 .circle-img-container img {
   width: 100%;
