@@ -142,7 +142,8 @@ function cargarProductos() {
 
     container.appendChild(productCard);
 
-    subtotal += item.price * item.amount;
+    //Suma del total que se implementara en proximas entregas
+    // subtotal += item.price * item.amount;
   });
 
   document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
