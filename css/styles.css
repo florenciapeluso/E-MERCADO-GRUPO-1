@@ -33,7 +33,7 @@ nav a {
   padding: 5em inherit;
   margin-bottom: 0;
   background-color: #53c0fb;
-  background: url("../img/cover_back.png");
+  background-image: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -41,12 +41,20 @@ nav a {
   font-weight: bold;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   .jumbotron {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    background-image: none; 
+    height: auto; 
   }
 }
+
+@media (max-width: 1024px) {
+  .jumbotron {
+    background-image: none; 
+    height: auto; 
+  }
+}
+
 
 .jumbotron p:last-child {
   margin-bottom: 0;
@@ -313,9 +321,9 @@ a.custom-card:hover {
 }
 
 .card-img-top-related {
-  max-width: 70%; /* Asegura que la imagen sea más pequeña */
-  height: auto; /* Mantiene la proporción */
-  margin: 0 auto; /* Centra la imagen horizontalmente */
+  max-width: 70%; 
+  height: auto; 
+  margin: 0 auto; 
   border-radius: 30px;
 }
 
@@ -331,20 +339,20 @@ a.custom-card:hover {
   background-color: black;
   border-radius: 100px;
   border-color: black;
-  padding: 5px 15px; /* Ajusta el padding del botón */
+  padding: 5px 15px; 
 }
 
 @media (max-width: 576px) {
   .carousel-item .col-12 {
-    flex: 0 0 100%; /* Ocupa todo el ancho en pantallas pequeñas */
-    max-width: 100%; /* Asegura que no se recorten */
+    flex: 0 0 100%; 
+    max-width: 100%; 
   }
 }
 
 /* Controlar layout en pantallas grandes para 2 productos por fila */
 .carousel-item .col-md-6,
 .carousel-item .col-lg-6 {
-  flex: 1 0 45%; /* Ajusta el ancho de las tarjetas en pantallas grandes */
+  flex: 1 0 45%; 
 }
 
 .text-related {
@@ -359,8 +367,8 @@ a.custom-card:hover {
 
 /* Estilos my profile */
 .circle-img-container {
-  aspect-ratio: 1 / 1; /* Mantiene la proporcion entre el ancho y el alto*/
-  border-radius: 50%; /* Redondea el contenedor para que la imagen se vea circular */
+  aspect-ratio: 1 / 1; 
+  border-radius: 50%; 
   overflow: hidden;
 }
 
@@ -407,8 +415,7 @@ body.night-mode .card-body,
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53c0fb;
-  background: url("../img/cover_back.png");
+  background-image: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -417,6 +424,19 @@ body.night-mode .card-body,
   filter: invert(1) brightness(2);
 }
 
+@media (max-width: 768px) {
+  .jumbotron.night-mode {
+    background-image: none;
+    height: auto; 
+  }
+}
+
+@media (max-width: 1024px) {
+  .jumbotron.night-mode {
+    background-image: none; 
+    height: auto; 
+  }
+}
 
 .circle-img-container img {
   width: 100%;
@@ -437,6 +457,19 @@ body.night-mode .card-body,
   opacity: 0;
   width: 0;
   height: 0;
+}
+
+@media (max-width: 576px) {
+  .switch {
+    position: absolute; 
+    right: 10%; 
+    bottom: -15px; 
+  }
+
+  .toggle-container {
+    position: relative; 
+    overflow: visible; 
+  }
 }
 
 .slider {
