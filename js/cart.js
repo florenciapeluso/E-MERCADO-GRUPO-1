@@ -150,7 +150,7 @@ function cargarProductos() {
     //  subtotal += item.price * item.amount;
   });
 
-  document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
+  // document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
 }
 
 // Función para eliminar un producto del carrito
