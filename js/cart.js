@@ -80,6 +80,60 @@ function cargarProductos() {
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
     productCard.className = "col-md-12 mb-1 cart-item d-flex align-items-center justify-content-center";
+    if (index===0){
+      productCard.innerHTML = `
+       <div class="d-flex align-items-center py-3 border-bottom">
+        <div class="flex-grow-1">
+          <h5 class="product-name m-3"></h5>
+          
+          <p class="m-3"></p>
+        </div>
+        <div class="d-flex align-items-center mx-5"> Cantidad
+          <div class="btn-group" role="group" aria-label="Cantidad">
+            <button class="btn btn-outline-secondary btn-sm quantity-btn restar">
+              <i class="bi bi-dash"></i>
+            </button>
+            <span class="mx-2" id="amount-${index}">${item.amount}</span>
+            <button class="btn btn-outline-secondary btn-sm quantity-btn sumar">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}">Subtotal</p>
+        <button class="btn btn-link text-danger p-0 m-5 delete-btn" data-index="${index}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" style="color: black;">
+            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+          </svg>
+        </button>
+       </div>
+       <div class="d-flex align-items-center py-3 border-bottom">
+        <img src="${item.img}" alt="${item.name}" class="product-img mr-3" style="width: 150px; height: auto; border-radius:8px;">
+        <div class="flex-grow-1">
+          <h5 class="product-name m-3">${item.name}</h5>
+          
+          <p class="m-3">${item.currency} ${item.price}</p>
+        </div>
+        <div class="d-flex align-items-center mx-5">
+          <div class="btn-group" role="group" aria-label="Cantidad">
+            <button class="btn btn-outline-secondary btn-sm quantity-btn restar">
+              <i class="bi bi-dash"></i>
+            </button>
+            <span class="mx-2" id="amount-${index}">${item.amount}</span>
+            <button class="btn btn-outline-secondary btn-sm quantity-btn sumar">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+        </div>
+        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}">${item.currency} ${(item.price * item.amount).toFixed(2)}</p>
+        <button class="btn btn-link text-danger p-0 m-5 delete-btn" data-index="${index}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" style="color: black;">
+            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+          </svg>
+        </button>
+      </div>
+`
+    }
+    else {
     productCard.innerHTML = `
       <div class="d-flex align-items-center py-3 border-bottom">
         <img src="${item.img}" alt="${item.name}" class="product-img mr-3" style="width: 150px; height: auto; border-radius:8px;">
@@ -106,7 +160,7 @@ function cargarProductos() {
           </svg>
         </button>
       </div>
-    `;
+    `};
 
     // Función para actualizar cantidad
     function actualizarcantidad(index, change, cartItems) {
