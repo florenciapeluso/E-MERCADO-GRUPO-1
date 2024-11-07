@@ -65,3 +65,10 @@ function showCartBadge() {
     badge.innerHTML = `${amount}<span class="visually-hidden">productos en el carrito</span>`
   }
 }
+
+//Inicializar los tooltips
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})
