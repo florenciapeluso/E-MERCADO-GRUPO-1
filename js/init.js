@@ -48,6 +48,10 @@ function showCartBadge() {
   let cartProducts = JSON.parse(localStorage.getItem(cartKey));
   let amount = 0;
 
+  if (cartProducts == null) {
+    return;
+  }
+
   for (product of cartProducts) {
     amount += product.amount;
   }

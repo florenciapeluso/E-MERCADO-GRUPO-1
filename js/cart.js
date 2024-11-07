@@ -54,7 +54,9 @@ function cargarProductos() {
   const container = document.getElementById("data-container");
   const summaryContainer = document.querySelector(".cart-summary"); 
   container.innerHTML = "";
-  let subtotal = 0;
+
+  //Se utilizara en proximas entregas
+  // let subtotal = 0;
 
   if (cartItems.length === 0) {
     container.innerHTML = `
@@ -135,14 +137,13 @@ function cargarProductos() {
     }
     else {
     productCard.innerHTML = `
-      <div class="d-flex align-items-center py-3 border-bottom">
+      <div class="d-flex flex-column flex-md-row align-items-center p-3 border-bottom h-100">
         <img src="${item.img}" alt="${item.name}" class="product-img mr-3" style="width: 150px; height: auto; border-radius:8px;">
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 text-center text-md-left">
           <h5 class="product-name m-3">${item.name}</h5>
-          
           <p class="m-3">${item.currency} ${item.price}</p>
         </div>
-        <div class="d-flex align-items-center mx-5">
+        <div class="d-flex justify-content-center justify-content-md-start align-items-center mx-5">
           <div class="btn-group" role="group" aria-label="Cantidad">
             <button class="btn btn-outline-secondary btn-sm quantity-btn restar">
               <i class="bi bi-dash"></i>
@@ -176,13 +177,15 @@ function cargarProductos() {
       amountElement.textContent = item.amount;
 
       const totalElement = document.getElementById(`total-${index}`);
-      totalElement.textContent = `USD $${(item.price * item.amount).toFixed(2)}`;
+      totalElement.textContent = `${item.currency} ${(item.price * item.amount).toFixed(2)}`;
 
       let subtotal = 0;
       cartItems.forEach((cartItem) => {
         subtotal += cartItem.price * cartItem.amount;
       });
-      document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
+
+      //Se utilizara en proximas entregas
+      // document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
     }
 
     // Agregar event listener para eliminar el producto
@@ -197,10 +200,11 @@ function cargarProductos() {
 
     container.appendChild(productCard);
 
-    subtotal += item.price * item.amount;
+    //Se utilizara en proximas entregas
+    //  subtotal += item.price * item.amount;
   });
 
-  document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
+  // document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
 }
 
 // Función para eliminar un producto del carrito
@@ -212,6 +216,7 @@ function eliminarProducto(index) {
   cargarProductos(); 
   showCartBadge(); 
 }
-
+//Esta línea es para que quede en cero el subtotal
+document.getElementById("order-total").textContent = `USD $0.00`;
 
 document.addEventListener("DOMContentLoaded", cargarProductos);
