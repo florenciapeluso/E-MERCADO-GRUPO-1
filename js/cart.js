@@ -63,6 +63,7 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
 function cargarProductos() {
   const container = document.getElementById("data-container");
   const summaryContainer = document.querySelector(".cart-summary");
+  const shippingOptions = document.querySelector(".shipping-options");
   container.innerHTML = "";
   let subtotal = 0;
 
@@ -82,9 +83,11 @@ function cargarProductos() {
     `;
     document.getElementById("order-total").textContent = "USD $0.00";
     summaryContainer.style.display = "none";
+    shippingOptions.style.display = "none";
     return;
   } else {
     summaryContainer.style.display = "block";
+    shippingOptions.style.display = "block";
   }
 
   cartItems.forEach((item, index) => {
