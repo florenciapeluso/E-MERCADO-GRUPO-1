@@ -1,6 +1,20 @@
 // modo noche
 const user = getCookie("sessionUser");
 
+// Se declaran como variables globales la clave del carrito y su contenido
+const cartKey = getCookie("sessionUser") + "-cart";
+let cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+// Se inicializa la variable global Tipo de Envío, que será actualizada con los eventos de los radio buttons
+let deliveryType = ""
+
+// Evento para llamar a la función cargarProductos
+document.addEventListener("DOMContentLoaded", cargarProductos);
+
+// Evento para llamar a la función loadTheme
+document.addEventListener("DOMContentLoaded", loadTheme);
+
+// Funciones y eventos relacionados con el Modo Oscuro
 function enableDayMode() {
   document.body.classList.add("day-mode");
   document.body.classList.remove("night-mode");
@@ -35,9 +49,6 @@ function loadTheme() {
     enableDayMode();
   }
 }
-
-document.addEventListener("DOMContentLoaded", loadTheme);
-
 // evento para el toggle de modo
 document.getElementById("theme-toggle").addEventListener("change", function () {
   if (this.checked) {
@@ -47,12 +58,11 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
   }
 });
 
+// Funciones relacionadas con el carrito
 // Función para cargar los productos del carrito
 function cargarProductos() {
-  const cartKey = getCookie("sessionUser") + "-cart";
-  const cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
   const container = document.getElementById("data-container");
-  const summaryContainer = document.querySelector(".cart-summary"); 
+  const summaryContainer = document.querySelector(".cart-summary");
   container.innerHTML = "";
   let subtotal = 0;
 
@@ -71,10 +81,10 @@ function cargarProductos() {
       </div>
     `;
     document.getElementById("order-total").textContent = "USD $0.00";
-    summaryContainer.style.display = "none"; 
-    return; 
+    summaryContainer.style.display = "none";
+    return;
   } else {
-    summaryContainer.style.display = "block"; 
+    summaryContainer.style.display = "block";
   }
 
   cartItems.forEach((item, index) => {
@@ -107,11 +117,9 @@ function cargarProductos() {
         </button>
       </div>
     `;
-
-
-
+    // NOTA: ESTA FUNCIÓN actualizarCantidad SE PUEDE DECLARAR AFUERA Y AQUÍ SOLAMENTE LLAMARLA
     // Función para actualizar cantidad
-    function actualizarcantidad(index, change, cartItems) {
+    function actualizarCantidad(index, change, cartItems) {
       const item = cartItems[index];
       item.amount += change;
       if (item.amount < 1) item.amount = 1;
@@ -124,13 +132,9 @@ function cargarProductos() {
       amountElement.textContent = item.amount;
 
       const totalElement = document.getElementById(`total-${index}`);
-      totalElement.textContent = `USD $${(item.price * item.amount).toFixed(2)}`;
+      totalElement.textContent = `USD $${(item.price * item.amount).toFixed(2)}`; // EN LA DECLARACIÓN DE LA MONEDA, USAR LA QUE TIENE ESPECIFICADO EL PRODUCTO (item.currency) EN LUGAR DE "USD $"
 
-      let subtotal = 0;
-      cartItems.forEach((cartItem) => {
-        subtotal += cartItem.price * cartItem.amount;
-      });
-      document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
+      showTotals(cartItems);
     }
 
     // Agregar event listener para eliminar el producto
@@ -140,26 +144,86 @@ function cargarProductos() {
     const restarBtn = productCard.querySelector(".restar");
     const sumarBtn = productCard.querySelector(".sumar");
 
-    restarBtn.addEventListener("click", () => actualizarcantidad(index, -1, cartItems));
-    sumarBtn.addEventListener("click", () => actualizarcantidad(index, 1, cartItems));
+    restarBtn.addEventListener("click", () => actualizarCantidad(index, -1, cartItems));
+    sumarBtn.addEventListener("click", () => actualizarCantidad(index, 1, cartItems));
 
     container.appendChild(productCard);
 
     subtotal += item.price * item.amount;
   });
 
-  document.getElementById("order-total").textContent = `USD $${subtotal.toFixed(2)}`;
+  showTotals(cartItems);
 }
 
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
-  const cartKey = getCookie("sessionUser") + "-cart";
-  let cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
   cartItems.splice(index, 1);
   localStorage.setItem(cartKey, JSON.stringify(cartItems));
-  cargarProductos(); 
-  showCartBadge(); 
+  cargarProductos();
+  showCartBadge();
 }
 
+// Función para calcular Subtotal de la sección "Costos"
+function calcSubtotal(cartProducts) {
+  let subtotal = 0;
+  cartProducts.forEach((product) => {
+    subtotal += convertToUSD(product.currency, product.price) * product.amount;
+  });
+  return subtotal;
+}
 
-document.addEventListener("DOMContentLoaded", cargarProductos);
+// Función para convertir los precios en UYU a USD (Se eligió como tasa de cambio 41)
+function convertToUSD(currency, price) {
+  if (currency == "USD") {
+    return price;
+  }
+  return price / 41;
+}
+
+// Función para calcular Costo de Envío
+function calcDeliveryCost(deliveryType, subtotal) {
+  switch (deliveryType) {
+    case "Premium":
+      return subtotal * 0.15; // Representa un 15 % del precio total de los artículos
+    case "Express":
+      return subtotal * 0.07; // Representa un 7 % del precio total de los artículos
+    case "Standard":
+      return subtotal * 0.05 // Representa un 5 % del precio total de los artículos
+    default:
+      return 0;
+  }
+}
+
+// Agregar eventos a los radio button "Tipo de Envío"
+// Premium
+document.getElementById("premiumRadioBtn").addEventListener("click", () => {
+  deliveryType = "Premium";
+  showTotals(cartItems)
+})
+
+// Express
+document.getElementById("expressRadioBtn").addEventListener("click", () => {
+  deliveryType = "Express";
+  showTotals(cartItems)
+})
+
+// Standard
+document.getElementById("standardRadioBtn").addEventListener("click", () => {
+  deliveryType = "Standard";
+  showTotals(cartItems)
+})
+
+// Función para calcular y mostrar el costo total
+function showTotals(cartItems) {
+  let subtotal = calcSubtotal(cartItems);
+  let deliveryCost = calcDeliveryCost(deliveryType, subtotal)
+  let total = subtotal + deliveryCost;
+
+  // Aquí se debe agregar el resto de costos calculados a la vista (Subtotal y Costo de Envío)
+  // Es necesario añadir en el HTML las etiquetas contenedoras de estos dos nuevos elementos y actualizar
+  // su contenido desde aquí, como se hace con el TOTAL
+  // Es necesario además añadir al título de la sección (Costos en USD) un tooltip que diga que los costos de los
+  // productos en UYU fueron convertidos a USD utilizando la tasa de cambio 1 x 41
+
+  document.getElementById("order-total").textContent = `USD ${total.toFixed(2)}`;
+}
