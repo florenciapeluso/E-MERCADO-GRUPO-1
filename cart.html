@@ -95,155 +95,182 @@
     </div>
   </nav>
 
-<!-- carrito de compras-->
+  <!-- carrito de compras-->
   <main class="container my-5">
     <h2 class="mb-4 text-center text-md-start">Mi Carrito</h2>
     <div id="data-container" class="row">
-        <!-- Los productos del carrito se mostrarán aquí -->
+      <!-- Los productos del carrito se mostrarán aquí -->
     </div>
 
 
     <!---Tipo de envío-->
     <div class="shipping-options">
-    <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between"> 
-    <h5 class="fw-bold ms-2">Tipo de envío</h5>
-    </div>
-    <div class="row">
-      <div class="mt-3 d-flex col-md-2 align-items-center justify-content-between"> 
-        </div>
-      <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between"> 
-        <div class="form-check justify-content-between">
-          <input class="form-check-input" type="radio" name="flexRadioShipping" id="premiumRadioBtn">
-          <label class="form-check-label" for="premiumRadioBtn">
-            Premium - 15%
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="2 a 5 días" class="text-decoration-none text-dark"> 
-              <img
-              src="img/info.svg"
-              alt="info"
-              height="15"
-              width="18" />
-            </a>
-           
-          </label>
-        </div>
-        <div class="form-check justify-content-between">
-          <input class="form-check-input" type="radio" name="flexRadioShipping" id="expressRadioBtn">
-          <label class="form-check-label" for="expressRadioBtn">
-            Express - 7%
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="5 a 8 días" class="text-decoration-none text-dark"> 
-              <img
-              src="img/info.svg"
-              alt="info"
-              height="15"
-              width="18" />
-            </a>
-          </label>
+      <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+        <h5 class="fw-bold ms-2">Tipo de envío</h5>
       </div>
-      <div class="form-check justify-content-between">
-          <input class="form-check-input" type="radio" name="flexRadioShipping" id="standardRadioBtn">
-          <label class="form-check-label" for="standardRadioBtn">
-            Standard - 5%
-            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="12 a 15 días" class="text-decoration-none text-dark"> 
-              <img
-              src="img/info.svg"
-              alt="info"
-              height="15"
-              width="18" />
-            </a>
-            
-          </label>
+      <div class="row">
+        <div class="mt-3 d-flex col-md-2 align-items-center justify-content-between">
         </div>
+        <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between">
+          <div class="form-check justify-content-between">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="premiumRadioBtn">
+            <label class="form-check-label" for="premiumRadioBtn">
+              Premium - 15%
+              <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="2 a 5 días"
+                class="text-decoration-none text-dark">
+                <img src="img/info.svg" alt="info" height="15" width="18" />
+              </a>
+
+            </label>
+          </div>
+          <div class="form-check justify-content-between">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="expressRadioBtn">
+            <label class="form-check-label" for="expressRadioBtn">
+              Express - 7%
+              <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="5 a 8 días"
+                class="text-decoration-none text-dark">
+                <img src="img/info.svg" alt="info" height="15" width="18" />
+              </a>
+            </label>
+          </div>
+          <div class="form-check justify-content-between">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="standardRadioBtn">
+            <label class="form-check-label" for="standardRadioBtn">
+              Standard - 5%
+              <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="12 a 15 días"
+                class="text-decoration-none text-dark">
+                <img src="img/info.svg" alt="info" height="15" width="18" />
+              </a>
+
+            </label>
+          </div>
         </div>
       </div>
 
-<!---Forma de pago-->
-
-        <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
-          <h5 class="fw-bold ms-2 mt-5">Forma de pago</h5>
+      <!-- Formulario de dirección -->
+      <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+        <h5 class="fw-bold ms-2">Dirección de envío</h5>
+      </div>
+      <form class="mt-2 m-5">
+        <div class="row pt-3 ">
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="departamento">Departamento</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="departamento"
+              placeholder="">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="localidad">Localidad</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="localidad"
+              placeholder="">
+          </div>
         </div>
-
-        <div class="row">
-          <div class="mt-3 d-flex col-md-2 align-items-center justify-content-between"> 
+        <div class="row pt-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="calle">Calle</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="calle" placeholder="">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="numero">Número</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="numero" placeholder="">
+          </div>
         </div>
-        <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between"> 
+        <div class="row pt-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="esquina">Esquina</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="esquina"
+              placeholder="">
+          </div>
+        </div>
+      </form>
+
+      <!---Forma de pago-->
+
+      <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+        <h5 class="fw-bold ms-2 mt-5">Forma de pago</h5>
+      </div>
+
+      <div class="row">
+        <div class="mt-3 d-flex col-md-2 align-items-center justify-content-between">
+        </div>
+        <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between">
           <div class="form-check justify-content-between">
             <input class="form-check-input" type="radio" name="flexRadioPayment" id="creditCardRadioBtn">
-              <label class="form-check-label" for="creditCardRadioBtn">
-                Tarjeta de crédito
-              </label>
+            <label class="form-check-label" for="creditCardRadioBtn">
+              Tarjeta de crédito
+            </label>
           </div>
           <div class="form-check justify-content-between">
             <input class="form-check-input" type="radio" name="flexRadioPayment" id="wireRadioBtn">
-              <label class="form-check-label" for="wireRadioBtn">
-                Transferencia bancaria
-              </label>
+            <label class="form-check-label" for="wireRadioBtn">
+              Transferencia bancaria
+            </label>
           </div>
 
         </div>
-        </div>
-
-        </div> 
       </div>
 
+    </div>
+    </div>
 
-</main>
+
+  </main>
 
 
-      <!-- resumen del pedido -->
-      <div class="container-fluid">
-        <div class="col-md-3 mx-auto">
-          <div class="cart-summary">
-            <h5>Costos en USD</h5>
-            <hr>
-            <p class="d-flex justify-content-between">
-            <span>SUBTOTAL</span>
-            <span id="order-subtotal">USD $2600</span>
-            </p>
-            <p class="d-flex justify-content-between">
-              <span>COSTOS DE ENVÍO</span>
-              <span id="shipping-total">USD $2600</span>
-              </p>
-            <hr>
-            <p class="d-flex justify-content-between">
-              <span>TOTAL</span>
-              <span id="order-total">USD $0</span>
-              </p>
-          <div id="btn-buy" class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-dark" style="width: 226px; height: 40px;">Finalizar compra</button>
-            <small class="text-muted">
-          </div>
-          <small class="d-block text-center mt-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
-              viewBox="0 0 16 16">
-              <path
-                d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" />
-            </svg>Pago Seguro
-          </small>
+  <!-- resumen del pedido -->
+  <div class="container-fluid">
+    <div class="col-md-3 mx-auto">
+      <div class="cart-summary">
+        <h5>Costos en USD</h5>
+        <hr>
+        <p class="d-flex justify-content-between">
+          <span>SUBTOTAL</span>
+          <span id="order-subtotal">USD $2600</span>
+        </p>
+        <p class="d-flex justify-content-between">
+          <span>COSTOS DE ENVÍO</span>
+          <span id="shipping-total">USD $2600</span>
+        </p>
+        <hr>
+        <p class="d-flex justify-content-between">
+          <span>TOTAL</span>
+          <span id="order-total">USD $0</span>
+        </p>
+        <div id="btn-buy" class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-dark" style="width: 226px; height: 40px;">Finalizar compra</button>
+          <small class="text-muted">
         </div>
+        <small class="d-block text-center mt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
+            viewBox="0 0 16 16">
+            <path
+              d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1" />
+          </svg>Pago Seguro
+        </small>
       </div>
+    </div>
 
 
-  <footer class="text-muted">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
-      </p>
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-end">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a>
+        </p>
+      </div>
+    </footer>
+    <div id="spinner-wrapper">
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-  </footer>
-  <div id="spinner-wrapper">
-    <div class="lds-ring">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/init.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/session-manager.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/session-manager.js"></script>
 </body>
 
 </html>
