@@ -229,4 +229,6 @@ function showTotals(cartItems) {
   // productos en UYU fueron convertidos a USD utilizando la tasa de cambio 1 x 41
 
   document.getElementById("order-total").textContent = `USD ${total.toFixed(2)}`;
+  document.getElementById("order-subtotal").textContent = `USD ${subtotal.toFixed(2)}`;
+  document.getElementById("shipping-total").textContent = `USD ${deliveryCost.toFixed(2)}`;
 }
