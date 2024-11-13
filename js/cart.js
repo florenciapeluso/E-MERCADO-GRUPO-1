@@ -58,9 +58,9 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
   }
 });
 
-// Funciones relacionadas con el carrito
-// Función para cargar los productos del carrito
-// Función para actualizar la cantidad de un producto
+
+
+// Función actualizar la cantidad de un producto
 function actualizarCantidad(index, change, cartItems) {
   const item = cartItems[index];
   item.amount += change;
@@ -74,30 +74,11 @@ function actualizarCantidad(index, change, cartItems) {
   amountElement.textContent = item.amount;
 
   const totalElement = document.getElementById(`total-${index}`);
-  totalElement.textContent = `USD ${convertToUSD(item.currency, item.price * item.amount).toFixed(2)}`;
-
+  totalElement.textContent = `${item.currency} ${(item.price * item.amount).toFixed(2)}`; 
   showTotals(cartItems);
 }
 
 
-// Función para actualizar la cantidad de un producto
-function actualizarCantidad(index, change, cartItems) {
-  const item = cartItems[index];
-  item.amount += change;
-  if (item.amount < 1) item.amount = 1;
-
-  const cartKey = getCookie("sessionUser") + "-cart";
-  localStorage.setItem(cartKey, JSON.stringify(cartItems));
-  showCartBadge();
-
-  const amountElement = document.getElementById(`amount-${index}`);
-  amountElement.textContent = item.amount;
-
-  const totalElement = document.getElementById(`total-${index}`);
-  totalElement.textContent = `USD ${convertToUSD(item.currency, item.price * item.amount).toFixed(2)}`;
-
-  showTotals(cartItems);
-}
 
 // Función para cargar los productos del carrito
 function cargarProductos() {
@@ -132,9 +113,7 @@ function cargarProductos() {
 
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
-
-    // Calcula el total en dólares para la cantidad actual
-    const totalEnDolares = convertToUSD(item.currency, item.price) * item.amount;
+   const Subtotalcant = (item.currency, item.price) * item.amount;
 
     productCard.className = "col-md-12 mb-1 cart-item d-flex align-items-center justify-content-center";
     productCard.innerHTML = `
@@ -159,7 +138,7 @@ function cargarProductos() {
         </div>
         
         <!-- Muestra el total en USD-->
-        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}">USD ${totalEnDolares.toFixed(2)}</p>
+        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}"> ${item.currency}${Subtotalcant.toFixed(2)}</p>
         
         <button class="btn btn-link text-danger p-0 m-5 delete-btn" data-index="${index}">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" style="color: black;">
@@ -227,7 +206,7 @@ fetch('https://uy.dolarapi.com/v1/cotizaciones/usd')
     cargarProductos();
 
   })
-  
+
   .catch(error => console.error('Error al obtener la tasa de cambio:', error));
 
 // Función para convertir los precios en UYU a USD
