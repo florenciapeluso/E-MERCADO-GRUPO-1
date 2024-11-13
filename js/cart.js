@@ -60,7 +60,7 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
 
 
 
-// Función para actualizar la cantidad de un producto
+// Función actualizar la cantidad de un producto
 function actualizarCantidad(index, change, cartItems) {
   const item = cartItems[index];
   item.amount += change;
