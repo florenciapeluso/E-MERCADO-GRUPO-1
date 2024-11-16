@@ -214,8 +214,77 @@
         </div>
       </div>
 
-    </div>
-    </div>
+      <!--Información de pago-->
+      <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+=======
+        <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+          <h5 class="fw-bold ms-2 mt-5">Forma de pago</h5>
+        </div>
+  
+        <div class="row">
+          <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between">
+            <div class="form-check justify-content-between">
+              <input class="form-check-input" type="radio" name="flexRadioPayment" id="creditCardRadioBtn"  class="custom-control-input" checked=""
+              required="">
+              <input class="form-check-input" type="radio" name="flexRadioPayment" id="creditCardRadioBtn" class="custom-control-input" checked>
+              <label class="form-check-label" for="creditCardRadioBtn">
+                Tarjeta de crédito
+              </label>
+            </div>
+            <div class="form-check justify-content-between">
+              <input class="form-check-input" type="radio" name="flexRadioPayment" id="wireRadioBtn"  class="custom-control-input" checked=""
+              required="">
+              <input class="form-check-input" type="radio" name="flexRadioPayment" id="wireRadioBtn" class="custom-control-input">
+              <label class="form-check-label" for="wireRadioBtn">
+                Transferencia bancaria
+              </label>
+            </div>
+          </div>
+        </div>
+        
+       <!--Información de pago-->
+       <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
+        <h5 class="fw-bold ms-2 mt-3">Información de pago</h5>
+      </div>
+
+      <div class="row billing-info-card">
+
+        <div class="row pt-3">
+            <div class="col-12 col-md-6">
+                <label class="form-label title-bold" for="nro-tarjeta">Número de tarjeta</label>
+                <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="nro-tarjeta" placeholder="" required>
+                <div class="invalid-feedback"></div>
+            </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="titular">Nombre del titular</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="titular" placeholder="" required>
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="row pt-3">
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="cvv">CVV</label>
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="cvv" placeholder="" required>
+            <div class="invalid-feedback"></div>
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label title-bold" for="numero">Fecha de vencimiento</label>
+            <input type="month" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="vencimiento" placeholder="" required>
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+
+        </div>
+
+        <div class="row billing-info-wire">
+
+
+          <!--Aquí irían los datos de la cuenta a la cual se debe transferir-->
+          <p>Acceda a su cuenta bancaria e ingrese los datos correspondientes para realizar la transferencia bancaria.</p>
+            <p class="fw-bold">Banco: BROU</p>
+            <p class="fw-bold">Nombre del titular: Matías Rodríguez</p>
+            <p class="fw-bold">Número de cuenta: 0012-3456-7891</p> 
+            <p class="fw-bold">Enviar comprobante a: comprobante@gmail.com </p>
 
 
   </main>
