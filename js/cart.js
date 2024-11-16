@@ -330,8 +330,6 @@ function showTotals(cartItems) {
           document.querySelector('.payment-options').classList.remove('is-invalid');
         }
 
-        delayRemoveValidation();
-
       } else {
         event.preventDefault();
         form.reset();
@@ -344,17 +342,5 @@ function showTotals(cartItems) {
       form.classList.add('was-validated');
     });
   });
-  
-  
-  function delayRemoveValidation() {
-    setTimeout(() => {
-      addressFields.forEach(selector => {
-        const field = document.querySelector(selector);
-        field.classList.remove('is-invalid');
-      });
-      document.querySelector('.shipping-options').classList.remove('is-invalid');
-      document.querySelector('.payment-options').classList.remove('is-invalid');
-    }, 3000);
-  }
 
 })();
