@@ -11,6 +11,9 @@ let deliveryType = "Standard";
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
 
+//Evento para llamar a la función billingInfoDisplay
+document.addEventListener('DOMContentLoaded', billingInfoDisplay)
+
 // Evento para llamar a la función loadTheme
 document.addEventListener("DOMContentLoaded", loadTheme);
 
@@ -169,6 +172,40 @@ function cargarProductos() {
 
   showTotals(cartItems);
 }
+
+//Funciones para mostrar u ocultar información de pago
+
+const billingInfoCard = document.querySelector('.billing-info-card');
+const billingInfoWire = document.querySelector('.billing-info-wire');
+const creditCardRadio = document.getElementById('creditCardRadioBtn');
+const wireRadio = document.getElementById('wireRadioBtn');
+
+function billingInfoDisplay(){
+  if (cartItems.length === 0){
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+
+  } else{
+    billingInfoCard.style.display = 'block';
+    billingInfoWire.style.display = 'none';
+  }
+  creditCardRadio.addEventListener('input', showBillingForm);
+  wireRadio.addEventListener('input', showBillingForm);
+
+}
+
+function showBillingForm(){
+  console.log('show billing')
+  if (creditCardRadio.checked){
+    billingInfoCard.style.display= 'block';
+    billingInfoWire.style.display= 'none';
+  } else{
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'block';
+  }
+}
+
+
 
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
