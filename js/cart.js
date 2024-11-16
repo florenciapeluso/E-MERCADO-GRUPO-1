@@ -81,8 +81,6 @@ function actualizarCantidad(index, change, cartItems) {
   showTotals(cartItems);
 }
 
-
-
 // Función para cargar los productos del carrito
 function cargarProductos() {
   const container = document.getElementById("data-container");
@@ -141,7 +139,7 @@ function cargarProductos() {
         </div>
         
         <!-- Muestra el total en USD-->
-        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}"> ${item.currency}${Subtotalcant.toFixed(2)}</p>
+        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}"> ${item.currency} ${Subtotalcant.toFixed(2)}</p>
         
         <button class="btn btn-link text-danger p-0 m-5 delete-btn" data-index="${index}">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" style="color: black;">
@@ -203,8 +201,6 @@ function showBillingForm() {
     billingInfoWire.style.display = 'block';
   }
 }
-
-
 
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
@@ -395,14 +391,24 @@ function showTotals(cartItems) {
       form.classList.add('was-validated');
     });
   });
+
   function delayRemoveValidation() {
     setTimeout(() => {
       addressFields.forEach(selector => {
         const field = document.querySelector(selector);
         field.classList.remove('is-invalid');
       });
+
+      creditCardFields.forEach(field => {
+        field.classList.remove('is-invalid');
+      });
+
+      wireTransferFields.forEach(field => {
+        field.classList.remove('is-invalid');
+      });
+
       document.querySelector('.shipping-options').classList.remove('is-invalid');
       document.querySelector('.payment-options').classList.remove('is-invalid');
-    }, 3000);
+    }, 500);
   }
 })();
