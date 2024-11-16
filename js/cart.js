@@ -58,7 +58,28 @@ document.getElementById("theme-toggle").addEventListener("change", function () {
   }
 });
 
-// Funciones relacionadas con el carrito
+
+
+// Función actualizar la cantidad de un producto
+function actualizarCantidad(index, change, cartItems) {
+  const item = cartItems[index];
+  item.amount += change;
+  if (item.amount < 1) item.amount = 1;
+
+  const cartKey = getCookie("sessionUser") + "-cart";
+  localStorage.setItem(cartKey, JSON.stringify(cartItems));
+  showCartBadge();
+
+  const amountElement = document.getElementById(`amount-${index}`);
+  amountElement.textContent = item.amount;
+
+  const totalElement = document.getElementById(`total-${index}`);
+  totalElement.textContent = `${item.currency} ${(item.price * item.amount).toFixed(2)}`; 
+  showTotals(cartItems);
+}
+
+
+
 // Función para cargar los productos del carrito
 function cargarProductos() {
   const container = document.getElementById("data-container");
@@ -92,17 +113,17 @@ function cargarProductos() {
 
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
-    productCard.className =
-      "col-md-12 mb-1 cart-item d-flex align-items-center justify-content-center";
+   const Subtotalcant = (item.currency, item.price) * item.amount;
+
+    productCard.className = "col-md-12 mb-1 cart-item d-flex align-items-center justify-content-center";
     productCard.innerHTML = `
       <div class="d-flex flex-column flex-md-row align-items-center py-3 border-bottom">
-        <img src="${item.img}" alt="${
-      item.name
-    }" class="product-img mr-3" style="width: 150px; height: auto; border-radius:8px;">
+        <img src="${item.img}" alt="${item.name}" class="product-img mr-3" style="width: 150px; height: auto; border-radius:8px;">
         <div class="flex-grow-1">
           <h5 class="product-name m-3">${item.name}</h5>
           
-          <p class="m-3">${item.currency} ${item.price}</p>
+          <!-- Muestra el precio unitario en PESOS  -->
+          <p class="m-3">${item.currency} ${item.price.toFixed(2)}</p>
         </div>
         <div class="d-flex align-items-center mx-5">
           <div class="btn-group" role="group" aria-label="Cantidad">
@@ -115,9 +136,10 @@ function cargarProductos() {
             </button>
           </div>
         </div>
-        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}">${
-      item.currency
-    } ${(item.price * item.amount).toFixed(2)}</p>
+        
+        <!-- Muestra el total en USD-->
+        <p class="product-total font-weight-bold ml-4 mb-0" id="total-${index}"> ${item.currency}${Subtotalcant.toFixed(2)}</p>
+        
         <button class="btn btn-link text-danger p-0 m-5 delete-btn" data-index="${index}">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" style="color: black;">
             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
@@ -125,27 +147,6 @@ function cargarProductos() {
         </button>
       </div>
     `;
-    // NOTA: ESTA FUNCIÓN actualizarCantidad SE PUEDE DECLARAR AFUERA Y AQUÍ SOLAMENTE LLAMARLA
-    // Función para actualizar cantidad
-    function actualizarCantidad(index, change, cartItems) {
-      const item = cartItems[index];
-      item.amount += change;
-      if (item.amount < 1) item.amount = 1;
-
-      const cartKey = getCookie("sessionUser") + "-cart";
-      localStorage.setItem(cartKey, JSON.stringify(cartItems));
-      showCartBadge();
-
-      const amountElement = document.getElementById(`amount-${index}`);
-      amountElement.textContent = item.amount;
-
-      const totalElement = document.getElementById(`total-${index}`);
-      totalElement.textContent = `USD $${(item.price * item.amount).toFixed(
-        2
-      )}`; // EN LA DECLARACIÓN DE LA MONEDA, USAR LA QUE TIENE ESPECIFICADO EL PRODUCTO (item.currency) EN LUGAR DE "USD $"
-
-      showTotals(cartItems);
-    }
 
     // Agregar event listener para eliminar el producto
     const deleteBtn = productCard.querySelector(".delete-btn");
@@ -186,13 +187,38 @@ function calcSubtotal(cartProducts) {
   return subtotal;
 }
 
-// Función para convertir los precios en UYU a USD (Se eligió como tasa de cambio 41)
+
+
+// Variable global para la tasa de cambio
+let exchangeRate;
+
+// Obtener la tasa de cambio desde la API
+fetch('https://uy.dolarapi.com/v1/cotizaciones/usd')
+  .then(response => response.json())
+  .then(data => {
+    console.log('Datos recibidos de la API:', data); 
+    if (data && data.compra) {
+      exchangeRate = data.compra; // Usar la tasa de compra
+      console.log('Tasa de cambio actualizada:', exchangeRate); // Verifica que el valor se actualizó
+    } else {
+      console.error('No se pudo encontrar la propiedad "compra" en la respuesta de la API');
+    }
+    cargarProductos();
+
+  })
+
+  .catch(error => console.error('Error al obtener la tasa de cambio:', error));
+
+// Función para convertir los precios en UYU a USD
 function convertToUSD(currency, price) {
-  if (currency == "USD") {
+  if (currency === "USD") {
     return price;
   }
-  return price / 41;
+  return price / exchangeRate;
 }
+
+
+
 
 // Función para calcular Costo de Envío
 function calcDeliveryCost(deliveryType, subtotal) {
@@ -233,21 +259,9 @@ function showTotals(cartItems) {
   let deliveryCost = calcDeliveryCost(deliveryType, subtotal);
   let total = subtotal + deliveryCost;
 
-  // Aquí se debe agregar el resto de costos calculados a la vista (Subtotal y Costo de Envío)
-  // Es necesario añadir en el HTML las etiquetas contenedoras de estos dos nuevos elementos y actualizar
-  // su contenido desde aquí, como se hace con el TOTAL
-  // Es necesario además añadir al título de la sección (Costos en USD) un tooltip que diga que los costos de los
-  // productos en UYU fueron convertidos a USD utilizando la tasa de cambio 1 x 41
-
-  document.getElementById("order-total").textContent = `USD ${total.toFixed(
-    2
-  )}`;
-  document.getElementById(
-    "order-subtotal"
-  ).textContent = `USD ${subtotal.toFixed(2)}`;
-  document.getElementById(
-    "shipping-total"
-  ).textContent = `USD ${deliveryCost.toFixed(2)}`;
+  document.getElementById("order-total").textContent = `USD ${total.toFixed(2)}`;
+  document.getElementById("order-subtotal").textContent = `USD ${subtotal.toFixed(2)}`;
+  document.getElementById("shipping-total").textContent = `USD ${deliveryCost.toFixed(2)}`;
 }
 
 //validaciones

@@ -520,3 +520,8 @@ input:checked + .slider .icon-moon {
 .btn-group > .btn-check:checked + .btn.zIndex-reset, .btn-group > .btn-check:hover + .btn.zIndex-reset {
   z-index: unset;
 }
+
+.btninfoc {
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
