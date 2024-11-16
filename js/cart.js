@@ -11,8 +11,14 @@ let deliveryType = "";
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
 
+<<<<<<< Updated upstream
 //Evento para llamar a la función showBillingForm
 document.addEventListener('DOMContentLoaded', showBillingForm);
+=======
+//Evento para llamar a las funciones billingInfoDisplay
+document.addEventListener("DOMContentLoaded", billingInfoDisplay);
+
+>>>>>>> Stashed changes
 
 // Evento para llamar a la función loadTheme
 document.addEventListener("DOMContentLoaded", loadTheme);
@@ -175,6 +181,7 @@ function cargarProductos() {
   showTotals(cartItems);
 }
 
+<<<<<<< Updated upstream
 //Función para mostrar la información de pago
 
 function billingFormDisplay(){
@@ -207,6 +214,41 @@ function showBillingForm(){
 
 
 
+=======
+//Funciones para mostrar u ocultar información de pago
+
+const billingInfoCard = document.querySelector('.billing-info-card');
+const billingInfoWire = document.querySelector('.billing-info-wire');
+const creditCardRadio = document.getElementById('creditCardRadioBtn');
+const wireRadio = document.getElementById('wireRadioBtn');
+
+function billingInfoDisplay(){
+  if (cartItems.length === 0){
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+
+  } else{
+    billingInfoCard.style.display = 'block';
+    billingInfoWire.style.display = 'none';
+  }
+  creditCardRadio.addEventListener('input', showBillingForm);
+  wireRadio.addEventListener('input', showBillingForm);
+
+}
+
+function showBillingForm(){
+  console.log('show billing')
+  if (creditCardRadio.checked){
+    billingInfoCard.style.display= 'block';
+    billingInfoWire.style.display= 'none';
+  } else{
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'block';
+  }
+}
+
+
+>>>>>>> Stashed changes
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
   cartItems.splice(index, 1);
