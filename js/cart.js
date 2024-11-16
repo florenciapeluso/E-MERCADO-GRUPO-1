@@ -195,7 +195,6 @@ function billingInfoDisplay(){
 }
 
 function showBillingForm(){
-  console.log('show billing')
   if (creditCardRadio.checked){
     billingInfoCard.style.display= 'block';
     billingInfoWire.style.display= 'none';
@@ -225,23 +224,19 @@ function calcSubtotal(cartProducts) {
 }
 
 // Variable global para la tasa de cambio
-let exchangeRate;
+let exchangeRate = 41;
 
 // Obtener la tasa de cambio desde la API
 fetch('https://uy.dolarapi.com/v1/cotizaciones/usd')
   .then(response => response.json())
   .then(data => {
-    console.log('Datos recibidos de la API:', data); 
     if (data && data.compra) {
-      exchangeRate = data.compra; // Usar la tasa de compra
-      console.log('Tasa de cambio actualizada:', exchangeRate); // Verifica que el valor se actualizó
-    } else {
-      console.error('No se pudo encontrar la propiedad "compra" en la respuesta de la API');
+      exchangeRate = data.compra; // Actualiza la variable global con la tasa de compra actual
+      let costInfo = `Los costos de los productos en UYU fueron convertidos a USD utilizando la tasa de cambio de 1 x `;
+      document.getElementById("costs-title").setAttribute("title", costInfo + exchangeRate); // Se actualiza el valor del cambio en el mensaje informativo
     }
     cargarProductos();
-
   })
-
   .catch(error => console.error('Error al obtener la tasa de cambio:', error));
 
 // Función para convertir los precios en UYU a USD
