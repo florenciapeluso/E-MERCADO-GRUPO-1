@@ -307,14 +307,20 @@ function showTotals(cartItems) {
   const addressFields = ['#departamento', '#localidad', '#calle', '#numero', '#esquina'];
   const productQuantities = document.querySelectorAll('.product-quantity'); 
 
+  // campos de pago
+  const creditCardFields = document.querySelectorAll('.billing-info-card input[required]');
+  const wireTransferFields = document.querySelectorAll('.billing-info-wire input[required]');
+  const creditCardRadioBtn = document.getElementById('creditCardRadioBtn');
+  const wireRadioBtn = document.getElementById('wireRadioBtn');
+
   Array.from(forms).forEach(form => {
     form.addEventListener('submit', event => {
       let shippingSelected = false;
-      let paymentSelected = false;
+      let paymentValid = true;
       let allAddressFilled = true;
       let allQuantitiesValid = true;
 
-      // verificar si los campos de dirección están llenos
+      // comprobar si los campos de dirección están completos
       addressFields.forEach(selector => {
         const field = document.querySelector(selector);
         if (!field.value.trim()) {
@@ -332,7 +338,7 @@ function showTotals(cartItems) {
         }
       });
 
-      //verificar si la cantidad de cada producto >0
+      // cantidad de cada producto > 0
       productQuantities.forEach(quantityInput => {
         const quantity = parseInt(quantityInput.value);
         if (isNaN(quantity) || quantity <= 0) {
@@ -343,15 +349,35 @@ function showTotals(cartItems) {
         }
       });
 
-      //comprobar si hay pago seleccionado
-      paymentOptions.forEach(option => {
-        if (option.checked) {
-          paymentSelected = true;
-        }
-      });
+      //metodos de pago
+      if (creditCardRadioBtn.checked) {
+        creditCardFields.forEach(field => {
+          if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            paymentValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+            wireTransferFields.forEach(field => field.classList.remove('is-invalid'));
+          }
+        });
+       
 
-      // estilos para los mensajes de error 
-      if (!shippingSelected || !paymentSelected || !allAddressFilled || !allQuantitiesValid || !form.checkValidity()) {
+      } else if (wireRadioBtn.checked) {
+        //validar solo los campos de transferencia
+        wireTransferFields.forEach(field => {
+          if (!field.value.trim()) {
+            field.classList.add('is-invalid');
+            paymentValid = false;
+          } else {
+            field.classList.remove('is-invalid');
+            creditCardFields.forEach(field => field.classList.remove('is-invalid'));
+          }
+        });
+        
+      }
+
+      // estilos para los mensajes de error
+      if (!shippingSelected || !allAddressFilled || !allQuantitiesValid || !paymentValid || !form.checkValidity()) {
         event.preventDefault();
         event.stopPropagation();
 
@@ -361,12 +387,7 @@ function showTotals(cartItems) {
           document.querySelector('.shipping-options').classList.remove('is-invalid');
         }
 
-        if (!paymentSelected) {
-          document.querySelector('.payment-options').classList.add('is-invalid');
-        } else {
-          document.querySelector('.payment-options').classList.remove('is-invalid');
-        }
-
+        delayRemoveValidation()
       } else {
         event.preventDefault();
         form.reset();
@@ -379,5 +400,15 @@ function showTotals(cartItems) {
       form.classList.add('was-validated');
     });
   });
+  function delayRemoveValidation() {
+    setTimeout(() => {
+      addressFields.forEach(selector => {
+        const field = document.querySelector(selector);
+        field.classList.remove('is-invalid');
+      });
+      document.querySelector('.shipping-options').classList.remove('is-invalid');
+      document.querySelector('.payment-options').classList.remove('is-invalid');
+    },3000);
+}
 
 })();
