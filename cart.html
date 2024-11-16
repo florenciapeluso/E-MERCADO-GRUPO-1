@@ -104,6 +104,7 @@
 
 
     <!---Tipo de envío-->
+    <form class="needs-validation mt-2 m-5" novalidate>
     <div class="shipping-options">
       <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
         <h5 class="fw-bold ms-2">Tipo de envío</h5>
@@ -113,7 +114,8 @@
         </div>
         <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between">
           <div class="form-check justify-content-between">
-            <input class="form-check-input" type="radio" name="flexRadioShipping" id="premiumRadioBtn">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="premiumRadioBtn"  class="custom-control-input" checked=""
+            required="">
             <label class="form-check-label" for="premiumRadioBtn">
               Premium - 15%
               <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="2 a 5 días"
@@ -124,7 +126,8 @@
             </label>
           </div>
           <div class="form-check justify-content-between">
-            <input class="form-check-input" type="radio" name="flexRadioShipping" id="expressRadioBtn">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="expressRadioBtn"  class="custom-control-input" checked=""
+            required="">
             <label class="form-check-label" for="expressRadioBtn">
               Express - 7%
               <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="5 a 8 días"
@@ -134,14 +137,14 @@
             </label>
           </div>
           <div class="form-check justify-content-between">
-            <input class="form-check-input" type="radio" name="flexRadioShipping" id="standardRadioBtn">
+            <input class="form-check-input" type="radio" name="flexRadioShipping" id="standardRadioBtn"  class="custom-control-input" checked=""
+            required="">
             <label class="form-check-label" for="standardRadioBtn">
               Standard - 5%
               <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="12 a 15 días"
                 class="text-decoration-none text-dark">
                 <img src="img/info.svg" alt="info" height="15" width="18" />
               </a>
-
             </label>
           </div>
         </div>
@@ -151,37 +154,37 @@
       <div class="mt-3 d-flex align-items-center col-md-6 py-2 justify-content-between">
         <h5 class="fw-bold ms-2">Dirección de envío</h5>
       </div>
-      <form class="mt-2 m-5">
-        <div class="row pt-3 ">
-          <div class="col-12 col-md-6">
-            <label class="form-label title-bold" for="departamento">Departamento</label>
-            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="departamento"
-              placeholder="">
-          </div>
+        <div class="row pt-3">
+            <div class="col-12 col-md-6">
+                <label class="form-label title-bold" for="departamento">Departamento</label>
+                <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="departamento" placeholder="" required>
+                <div class="invalid-feedback">Por favor, ingresa el departamento.</div>
+            </div>
           <div class="col-12 col-md-6">
             <label class="form-label title-bold" for="localidad">Localidad</label>
-            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="localidad"
-              placeholder="">
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="localidad" placeholder="" required>
+            <div class="invalid-feedback">Por favor, ingresa una localidad</div>
           </div>
         </div>
         <div class="row pt-3">
           <div class="col-12 col-md-6">
             <label class="form-label title-bold" for="calle">Calle</label>
-            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="calle" placeholder="">
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="calle" placeholder="" required>
+            <div class="invalid-feedback">Por favor, ingresa una calle</div>
           </div>
           <div class="col-12 col-md-6">
             <label class="form-label title-bold" for="numero">Número</label>
-            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="numero" placeholder="">
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="numero" placeholder="" required>
+            <div class="invalid-feedback">Por favor, ingresa un número</div>
           </div>
         </div>
         <div class="row pt-3">
           <div class="col-12 col-md-6">
             <label class="form-label title-bold" for="esquina">Esquina</label>
-            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="esquina"
-              placeholder="">
+            <input type="text" class="form-control bg-light border-0 rounded-pill px-3 py-2" id="esquina" placeholder="" required>
+            <div class="invalid-feedback">Por favor, ingresa una esquina</div>
           </div>
         </div>
-      </form>
 
       <!---Forma de pago-->
 
@@ -194,13 +197,15 @@
         </div>
         <div class="mt-3 d-flex col-md-6 align-items-center justify-content-between">
           <div class="form-check justify-content-between">
-            <input class="form-check-input" type="radio" name="flexRadioPayment" id="creditCardRadioBtn">
+            <input class="form-check-input" type="radio" name="flexRadioPayment" id="creditCardRadioBtn"  class="custom-control-input" checked=""
+            required="">
             <label class="form-check-label" for="creditCardRadioBtn">
               Tarjeta de crédito
             </label>
           </div>
           <div class="form-check justify-content-between">
-            <input class="form-check-input" type="radio" name="flexRadioPayment" id="wireRadioBtn">
+            <input class="form-check-input" type="radio" name="flexRadioPayment" id="wireRadioBtn"  class="custom-control-input" checked=""
+            required="">
             <label class="form-check-label" for="wireRadioBtn">
               Transferencia bancaria
             </label>
@@ -235,10 +240,10 @@
           <span>TOTAL</span>
           <span id="order-total">USD $0</span>
         </p>
-        <div id="btn-buy" class="d-flex justify-content-center align-items-center">
-          <button class="btn btn-dark" style="width: 226px; height: 40px;">Finalizar compra</button>
-          <small class="text-muted">
+        <div class="d-flex justify-content-center align-items-center mt-4">
+          <button type="submit" class="btn btn-dark" style="width: 226px; height: 40px;">Finalizar compra</button>
         </div>
+      </form>
         <small class="d-block text-center mt-2">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock"
             viewBox="0 0 16 16">

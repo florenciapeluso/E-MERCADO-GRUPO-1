@@ -249,3 +249,100 @@ function showTotals(cartItems) {
     "shipping-total"
   ).textContent = `USD ${deliveryCost.toFixed(2)}`;
 }
+
+//validaciones
+
+(() => {
+  'use strict';
+
+  const forms = document.querySelectorAll('.needs-validation');
+  const shippingOptions = document.querySelectorAll('input[name="flexRadioShipping"]');
+  const paymentOptions = document.querySelectorAll('input[name="flexRadioPayment"]');
+  const addressFields = ['#departamento', '#localidad', '#calle', '#numero', '#esquina'];
+  const productQuantities = document.querySelectorAll('.product-quantity'); 
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      let shippingSelected = false;
+      let paymentSelected = false;
+      let allAddressFilled = true;
+      let allQuantitiesValid = true;
+
+      // verificar si los campos de dirección están llenos
+      addressFields.forEach(selector => {
+        const field = document.querySelector(selector);
+        if (!field.value.trim()) {
+          allAddressFilled = false;
+          field.classList.add('is-invalid');
+        } else {
+          field.classList.remove('is-invalid');
+        }
+      });
+
+      // comprobar si hay opción de envío seleccionada
+      shippingOptions.forEach(option => {
+        if (option.checked) {
+          shippingSelected = true;
+        }
+      });
+
+      //verificar si la cantidad de cada producto >0
+      productQuantities.forEach(quantityInput => {
+        const quantity = parseInt(quantityInput.value);
+        if (isNaN(quantity) || quantity <= 0) {
+          allQuantitiesValid = false;
+          quantityInput.classList.add('is-invalid');
+        } else {
+          quantityInput.classList.remove('is-invalid');
+        }
+      });
+
+      //comprobar si hay pago seleccionado
+      paymentOptions.forEach(option => {
+        if (option.checked) {
+          paymentSelected = true;
+        }
+      });
+
+      // estilos para los mensajes de error 
+      if (!shippingSelected || !paymentSelected || !allAddressFilled || !allQuantitiesValid || !form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!shippingSelected) {
+          document.querySelector('.shipping-options').classList.add('is-invalid');
+        } else {
+          document.querySelector('.shipping-options').classList.remove('is-invalid');
+        }
+
+        if (!paymentSelected) {
+          document.querySelector('.payment-options').classList.add('is-invalid');
+        } else {
+          document.querySelector('.payment-options').classList.remove('is-invalid');
+        }
+
+      } else {
+        event.preventDefault();
+        form.reset();
+        form.classList.remove('was-validated');
+        alert("Compra realizada con éxito.");
+        window.location.replace("index.html"); 
+      }
+
+      form.classList.add('was-validated');
+    });
+  });
+
+  // remover mensaje de error después de unos segundos
+  function delayRemoveValidation() {
+    setTimeout(() => {
+      addressFields.forEach(selector => {
+        const field = document.querySelector(selector);
+        field.classList.remove('is-invalid');
+      });
+      document.querySelector('.shipping-options').classList.remove('is-invalid');
+      document.querySelector('.payment-options').classList.remove('is-invalid');
+    }, 3000);
+  }
+
+})();
