@@ -334,6 +334,7 @@ function showTotals(cartItems) {
         event.preventDefault();
         form.reset();
         form.classList.remove('was-validated');
+        localStorage.removeItem(cartKey);
         alert("Compra realizada con éxito.");
         window.location.replace("index.html"); 
       }
@@ -341,17 +342,5 @@ function showTotals(cartItems) {
       form.classList.add('was-validated');
     });
   });
-
-  // remover mensaje de error después de unos segundos
-  function delayRemoveValidation() {
-    setTimeout(() => {
-      addressFields.forEach(selector => {
-        const field = document.querySelector(selector);
-        field.classList.remove('is-invalid');
-      });
-      document.querySelector('.shipping-options').classList.remove('is-invalid');
-      document.querySelector('.payment-options').classList.remove('is-invalid');
-    }, 3000);
-  }
 
 })();
