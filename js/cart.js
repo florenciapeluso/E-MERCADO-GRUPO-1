@@ -6,7 +6,7 @@ const cartKey = getCookie("sessionUser") + "-cart";
 let cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
 
 // Se inicializa la variable global Tipo de Envío, que será actualizada con los eventos de los radio buttons
-let deliveryType = "Standard";
+let deliveryType = "";
 
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
@@ -175,6 +175,38 @@ function cargarProductos() {
   showTotals(cartItems);
 }
 
+//Función para mostrar la información de pago
+
+function billingFormDisplay(){
+  console.log('en billingForm');
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  if (cartItems.length === 0) {
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+    } else if (creditCardRadio.checked){
+      billingInfoCard.style.display= 'block';
+      billingInfoWire.style.display='none';
+    } else if (wireRadio.checked){
+      billingInfoWire.style.display = 'block';
+      billingInfoCard.style.display = 'none';
+    }
+}
+
+function showBillingForm(){
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  billingInfoWire.style.display='none';
+  creditCardRadio.addEventListener('input', billingFormDisplay);
+  wireRadio.addEventListener('input', billingFormDisplay);
+}
+
+
+
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
   cartItems.splice(index, 1);
@@ -191,6 +223,38 @@ function calcSubtotal(cartProducts) {
   });
   return subtotal;
 }
+
+//Función para mostrar la información de pago
+
+function billingFormDisplay(){
+  console.log('en billingForm');
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  if (cartItems.length === 0) {
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+    } else if (creditCardRadio.checked){
+      billingInfoCard.style.display= 'block';
+      billingInfoWire.style.display='none';
+    } else if (wireRadio.checked){
+      billingInfoWire.style.display = 'block';
+      billingInfoCard.style.display = 'none';
+    }
+}
+
+function showBillingForm(){
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  billingInfoWire.style.display='none';
+  creditCardRadio.addEventListener('input', billingFormDisplay);
+  wireRadio.addEventListener('input', billingFormDisplay);
+}
+
+
 
 // Variable global para la tasa de cambio
 let exchangeRate;
@@ -219,6 +283,9 @@ function convertToUSD(currency, price) {
   }
   return price / exchangeRate;
 }
+
+
+
 
 // Función para calcular Costo de Envío
 function calcDeliveryCost(deliveryType, subtotal) {
@@ -339,7 +406,6 @@ function showTotals(cartItems) {
         event.preventDefault();
         form.reset();
         form.classList.remove('was-validated');
-        localStorage.removeItem(cartKey);
         alert("Compra realizada con éxito.");
         window.location.replace("index.html"); 
       }
@@ -347,5 +413,17 @@ function showTotals(cartItems) {
       form.classList.add('was-validated');
     });
   });
+
+  // remover mensaje de error después de unos segundos
+  function delayRemoveValidation() {
+    setTimeout(() => {
+      addressFields.forEach(selector => {
+        const field = document.querySelector(selector);
+        field.classList.remove('is-invalid');
+      });
+      document.querySelector('.shipping-options').classList.remove('is-invalid');
+      document.querySelector('.payment-options').classList.remove('is-invalid');
+    }, 3000);
+  }
 
 })();
