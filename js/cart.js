@@ -175,6 +175,38 @@ function cargarProductos() {
   showTotals(cartItems);
 }
 
+//Función para mostrar la información de pago
+
+function billingFormDisplay(){
+  console.log('en billingForm');
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  if (cartItems.length === 0) {
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+    } else if (creditCardRadio.checked){
+      billingInfoCard.style.display= 'block';
+      billingInfoWire.style.display='none';
+    } else if (wireRadio.checked){
+      billingInfoWire.style.display = 'block';
+      billingInfoCard.style.display = 'none';
+    }
+}
+
+function showBillingForm(){
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  billingInfoWire.style.display='none';
+  creditCardRadio.addEventListener('input', billingFormDisplay);
+  wireRadio.addEventListener('input', billingFormDisplay);
+}
+
+
+
 // Función para eliminar un producto del carrito
 function eliminarProducto(index) {
   cartItems.splice(index, 1);
