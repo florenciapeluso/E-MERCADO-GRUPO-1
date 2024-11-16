@@ -11,6 +11,9 @@ let deliveryType = "Standard";
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
 
+//Evento para llamar a la función showBillingForm
+document.addEventListener('DOMContentLoaded', showBillingForm);
+
 // Evento para llamar a la función loadTheme
 document.addEventListener("DOMContentLoaded", loadTheme);
 
@@ -109,7 +112,9 @@ function cargarProductos() {
   } else {
     summaryContainer.style.display = "block";
     shippingOptions.style.display = "block";
+
   }
+
 
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
