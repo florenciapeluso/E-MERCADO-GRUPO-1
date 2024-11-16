@@ -6,7 +6,7 @@ const cartKey = getCookie("sessionUser") + "-cart";
 let cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
 
 // Se inicializa la variable global Tipo de Envío, que será actualizada con los eventos de los radio buttons
-let deliveryType = "";
+let deliveryType = "Standard";
 
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
@@ -187,8 +187,6 @@ function calcSubtotal(cartProducts) {
   return subtotal;
 }
 
-
-
 // Variable global para la tasa de cambio
 let exchangeRate;
 
@@ -216,9 +214,6 @@ function convertToUSD(currency, price) {
   }
   return price / exchangeRate;
 }
-
-
-
 
 // Función para calcular Costo de Envío
 function calcDeliveryCost(deliveryType, subtotal) {
