@@ -11,6 +11,9 @@ let deliveryType = "";
 // Evento para llamar a la función cargarProductos
 document.addEventListener("DOMContentLoaded", cargarProductos);
 
+//Evento para llamar a la función showBillingForm
+document.addEventListener('DOMContentLoaded', showBillingForm);
+
 // Evento para llamar a la función loadTheme
 document.addEventListener("DOMContentLoaded", loadTheme);
 
@@ -109,7 +112,9 @@ function cargarProductos() {
   } else {
     summaryContainer.style.display = "block";
     shippingOptions.style.display = "block";
+
   }
+
 
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
@@ -185,6 +190,36 @@ function calcSubtotal(cartProducts) {
     subtotal += convertToUSD(product.currency, product.price) * product.amount;
   });
   return subtotal;
+}
+
+//Función para mostrar la información de pago
+
+function billingFormDisplay(){
+  console.log('en billingForm');
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  if (cartItems.length === 0) {
+    billingInfoCard.style.display = 'none';
+    billingInfoWire.style.display = 'none';
+    } else if (creditCardRadio.checked){
+      billingInfoCard.style.display= 'block';
+      billingInfoWire.style.display='none';
+    } else if (wireRadio.checked){
+      billingInfoWire.style.display = 'block';
+      billingInfoCard.style.display = 'none';
+    }
+}
+
+function showBillingForm(){
+  const billingInfoCard = document.querySelector('.billing-info-card');
+  const billingInfoWire = document.querySelector('.billing-info-wire');
+  const creditCardRadio = document.getElementById('creditCardRadioBtn');
+  const wireRadio = document.getElementById('wireRadioBtn');
+  billingInfoWire.style.display='none';
+  creditCardRadio.addEventListener('input', billingFormDisplay);
+  wireRadio.addEventListener('input', billingFormDisplay);
 }
 
 
