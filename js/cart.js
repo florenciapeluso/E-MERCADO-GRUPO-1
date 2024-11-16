@@ -77,7 +77,7 @@ function actualizarCantidad(index, change, cartItems) {
   amountElement.textContent = item.amount;
 
   const totalElement = document.getElementById(`total-${index}`);
-  totalElement.textContent = `${item.currency} ${(item.price * item.amount).toFixed(2)}`; 
+  totalElement.textContent = `${item.currency} ${(item.price * item.amount).toFixed(2)}`;
   showTotals(cartItems);
 }
 
@@ -116,7 +116,7 @@ function cargarProductos() {
 
   cartItems.forEach((item, index) => {
     const productCard = document.createElement("div");
-   const Subtotalcant = (item.currency, item.price) * item.amount;
+    const Subtotalcant = (item.currency, item.price) * item.amount;
 
     productCard.className = "col-md-12 mb-1 cart-item d-flex align-items-center justify-content-center";
     productCard.innerHTML = `
@@ -180,12 +180,12 @@ const billingInfoWire = document.querySelector('.billing-info-wire');
 const creditCardRadio = document.getElementById('creditCardRadioBtn');
 const wireRadio = document.getElementById('wireRadioBtn');
 
-function billingInfoDisplay(){
-  if (cartItems.length === 0){
+function billingInfoDisplay() {
+  if (cartItems.length === 0) {
     billingInfoCard.style.display = 'none';
     billingInfoWire.style.display = 'none';
 
-  } else{
+  } else {
     billingInfoCard.style.display = 'block';
     billingInfoWire.style.display = 'none';
   }
@@ -194,11 +194,11 @@ function billingInfoDisplay(){
 
 }
 
-function showBillingForm(){
-  if (creditCardRadio.checked){
-    billingInfoCard.style.display= 'block';
-    billingInfoWire.style.display= 'none';
-  } else{
+function showBillingForm() {
+  if (creditCardRadio.checked) {
+    billingInfoCard.style.display = 'block';
+    billingInfoWire.style.display = 'none';
+  } else {
     billingInfoCard.style.display = 'none';
     billingInfoWire.style.display = 'block';
   }
@@ -300,7 +300,7 @@ function showTotals(cartItems) {
   const shippingOptions = document.querySelectorAll('input[name="flexRadioShipping"]');
   const paymentOptions = document.querySelectorAll('input[name="flexRadioPayment"]');
   const addressFields = ['#departamento', '#localidad', '#calle', '#numero', '#esquina'];
-  const productQuantities = document.querySelectorAll('.product-quantity'); 
+  const productQuantities = document.querySelectorAll('.product-quantity');
 
   // campos de pago
   const creditCardFields = document.querySelectorAll('.billing-info-card input[required]');
@@ -347,28 +347,28 @@ function showTotals(cartItems) {
       //metodos de pago
       if (creditCardRadioBtn.checked) {
         creditCardFields.forEach(field => {
+          field.required = true;
           if (!field.value.trim()) {
             field.classList.add('is-invalid');
             paymentValid = false;
-          } else {
-            field.classList.remove('is-invalid');
-            wireTransferFields.forEach(field => field.classList.remove('is-invalid'));
           }
+          wireTransferFields.forEach(field => {
+            field.required = false;
+          })
         });
-       
 
       } else if (wireRadioBtn.checked) {
         //validar solo los campos de transferencia
         wireTransferFields.forEach(field => {
+          field.required = true;
           if (!field.value.trim()) {
             field.classList.add('is-invalid');
             paymentValid = false;
-          } else {
-            field.classList.remove('is-invalid');
-            creditCardFields.forEach(field => field.classList.remove('is-invalid'));
           }
+          creditCardFields.forEach(field => {
+            field.required = false;
+          })
         });
-        
       }
 
       // estilos para los mensajes de error
@@ -389,7 +389,7 @@ function showTotals(cartItems) {
         form.classList.remove('was-validated');
         localStorage.removeItem(cartKey);
         alert("Compra realizada con éxito.");
-        window.location.replace("index.html"); 
+        window.location.replace("index.html");
       }
 
       form.classList.add('was-validated');
@@ -403,7 +403,6 @@ function showTotals(cartItems) {
       });
       document.querySelector('.shipping-options').classList.remove('is-invalid');
       document.querySelector('.payment-options').classList.remove('is-invalid');
-    },3000);
-}
-
+    }, 3000);
+  }
 })();
